@@ -1,5 +1,2 @@
 discord.py[voice] ~= 0.16.0
-pip
-colorlog
-asyncio
-requests
+git+git://github.com/Rapptz/discord.py.git@async#egg=discord
