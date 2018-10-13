@@ -33,6 +33,11 @@ async def on_message(message):
   if message.content.startswith('w!reverse') == True:
         await client.send_message(message.channel, message.content[:8:-1])
 
+  if message.content.startswith('w!upsidedown'):
+        args = message.content.split(' ')
+        await client.delete_message(message)
+        await client.send_message(message.channel, upsidedown.transform((' '.join(args[1:])))
+                                
   if message.content.startswith('w!search'):
         await client.send_typing(message.channel)
         args = message.content.split(" ")
