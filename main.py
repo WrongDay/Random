@@ -77,8 +77,8 @@ async def prefix(ctx, new_prefix):
     author = ctx.message.author
     if ctx.message.author.server_permissions.manage_server:
         prefixes[ctx.message.server.id] = new_prefix
-        embed = discord.Embed(color=0xff05cf)
-        embed.add_field(name="Prefix changed...", value=f"``{new_prefix}``")
+        embed = discord.Embed(color=0x00ff00)
+        embed.add_field(name="Prefix changed to:", value=f"``{new_prefix}``")
         await client.say(embed=embed)
     else:
         embed = discord.Embed(color=0xff0200)
