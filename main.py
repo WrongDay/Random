@@ -20,7 +20,7 @@ def prefix(bot, message):
 Client = discord.Client()
 client = commands.Bot(command_prefix=prefix)
 client.remove_command('help')
-status = ['Work in progress :/', 'Prefix: w!', 'Made by Wrong#4794']
+status = ['Work in progress :/', 'Online 247', 'Made by Wrong#4794']
 
 async def change_status():
   await client.wait_until_ready()
