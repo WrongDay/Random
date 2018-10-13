@@ -112,13 +112,15 @@ async def serverinfo(ctx):
     return 
 
 @client.command(pass_context=True)
-async def runtime(ctx):
+async def uptime(ctx):
     now = datetime.utcnow()
     elapsed = now - starttime
     seconds = elapsed.seconds
     minutes, seconds = divmod(seconds, 60)
     hours, minutes = divmod(minutes, 60)
-    await client.say("Running for {}d {}h {}m {}s".format(elapsed.days, hours, minutes, seconds))
+    embed = discord.Embed(color=0x00ff00)
+    embed.add_field(name="WrongBot's Uptime", value="I've been online for **{elapsed.days}** days, **{hours}** hours, **{minutes}** minutes, **{seconds}** seconds")
+    await client.say(embed=embed)
   
 #Moderation commands
 @client.command(pass_context=True)
