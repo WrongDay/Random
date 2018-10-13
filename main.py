@@ -1,6 +1,7 @@
 import discord
 from discord.ext import commands
 from discord.ext.commands import Bot
+import json
 import os
 import asyncio
 import random
@@ -9,8 +10,15 @@ from itertools import cycle
 
 #https://pastebin.com/JMVYJpGY -reminder
 
+def prefix(bot, message):
+    with open("serverConfig.json") as f:
+        prefixes = json.load(f)
+    default_prefix = "w!"
+    id = message.server.id
+    return prefixes.get(id, default_prefix)
+
 Client = discord.Client()
-client = commands.Bot(command_prefix = "w!")
+client = commands.Bot(command_prefix=prefix)
 client.remove_command('help')
 status = ['Work in progress :/', 'Prefix: w!', 'Made by Wrong#4794']
 
