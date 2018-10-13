@@ -199,4 +199,4 @@ async def ban(ctx, user: discord.Member = None, *, reason=None):
         return
         
 client.loop.create_task(change_status())
-client.run(str(os.environ.get('BOT_TOKEN')))
+client.run(os.environ.get('BOT_TOKEN'))
