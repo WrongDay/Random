@@ -110,6 +110,15 @@ async def serverinfo(ctx):
     await client.say(embed=embed)
     return 
 
+@client.command(pass_context=True)
+async def runtime(ctx):
+    now = datetime.utcnow()
+    elapsed = now - starttime
+    seconds = elapsed.seconds
+    minutes, seconds = divmod(seconds, 60)
+    hours, minutes = divmod(minutes, 60)
+    await client.say("Running for {}d {}h {}m {}s".format(elapsed.days, hours, minutes, seconds))
+  
 #Moderation commands
 @client.command(pass_context=True)
 @commands.has_permissions(manage_messages=True)
@@ -197,5 +206,6 @@ async def ban(ctx, user: discord.Member = None, *, reason=None):
         await client.say(embed=embed)
         return
         
+starttime = datetime.utcnow()
 client.loop.create_task(change_status())
 client.run(os.environ.get('BOT_TOKEN'))
