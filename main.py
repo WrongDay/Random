@@ -5,7 +5,6 @@ import os
 import asyncio
 import random
 from itertools import cycle
-from keep_alive import keep_alive
 
 #https://pastebin.com/JMVYJpGY -reminder
 
