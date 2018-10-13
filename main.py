@@ -99,6 +99,7 @@ async def help(ctx):
 
   embed.set_author(name='Commands:')
   embed.add_field(name='w!help', value='Shows a list of command WrongBot has', inline=False)
+  embed.add_field(name='w!prefix', value='Changes the bot prefix', inline=False)
   embed.add_field(name='w!uptime', value='Shows how long the bot has been on', inline=False)
   embed.add_field(name='w!say', value='Makes the bot say something', inline=False)
   embed.add_field(name='w!reverse', value='Reverse your message', inline=False)
