@@ -28,6 +28,12 @@ async def on_ready():
     print("WrongBot is at your service!")
     print(client.user)
 
+@client.event
+async def on_server_join(server):
+    await client.send_message(server.owner, """Thanks for inviting me! Make sure I have the following permission to work properly:
+    **Manage message** for say, and clear command
+    **Kick/Ban** to kick and ban users (optional)""")
+    
 @client.event 
 async def on_message(message):
   if message.content.startswith('w!reverse') == True:
