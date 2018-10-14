@@ -42,18 +42,6 @@ async def on_server_join(server):
     **Manage message** for say, and clear command
     **Kick/Ban** to kick and ban users (optional)""")
     
-@client.event
-async def on_member_join(member):
-    with open("server.json", "r") as f:
-        join = json.load(f)
-    server = member.server
-    welcomes = join[member.server.id]["welcome"]
-    channels = join[member.server.id]["channel"]
-    channel = discord.utils.get(server.channels, name=channels)
-    await client.send_message(channel, f"{member.mention}, {welcomes}")
-    with open("server.json", "w") as f:
-        json.dump(join,f)
-    
 @client.event 
 async def on_message(message):
   if message.content.startswith('w!reverse') == True:
@@ -154,6 +142,18 @@ async def setchannel(ctx, channel_name = None):
         await client.say(embed=embed)
     with open("server.json", "w") as f:
         json.dump(channel,f)     
+    
+client.event
+async def on_member_join(member):
+    with open("server.json", "r") as f:
+        join = json.load(f)
+    server = member.server
+    welcomes = join[member.server.id]["welcome"]
+    channels = join[member.server.id]["channel"]
+    channel = discord.utils.get(server.channels, name=channels)
+    await client.send_message(channel, f"{member.mention}, {welcomes}")
+    with open("server.json", "w") as f:
+        json.dump(join,f) 
     
 @client.command(pass_context=True)
 async def help(ctx):
