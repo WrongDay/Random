@@ -215,48 +215,6 @@ async def addrole(ctx, user: discord.Member = None, *, name = None):
         embed.set_author(icon_url=author.avatar_url, name="An error occured!")
         embed.add_field(name=":x: Error", value="I'm missing the following permission: ```Manage Roles```", inline=False)
         await client.say(embed=embed)
-
-@client.command(pass_context=True)
-async def removerole(ctx, user : discord.Member = None, *, name = None):
-    author = ctx.message.author
-    try:
-        if ctx.message.author.server_permissions.manage_roles:
-            role = discord.utils.get(ctx.message.server.roles, name=name)
-            if user is None:
-                embed = discord.Embed(color=0xff0200)
-                embed.set_author(icon_url=author.avatar_url, name="Something went wrong ;-;")
-                embed.add_field(name=":x: Error", value="Please specify a user!", inline=False)
-                embed.set_footer(text=f"Error Created by: {author.name}")
-                await client.say(embed=embed)
-                return
-            
-            if role is None:
-                embed = discord.Embed(color=0xff0200)
-                embed.set_author(icon_url=author.avatar_url, name="Something went wrong ;-;")
-                embed.add_field(name=":x: Error", value=f"You made an mistake! ```Error: No role called: {name}```")
-                await client.say(embed=embed)
-                return
-            
-            await client.remove_roles(user, role)
-            embed = discord.Embed(color=0x4e09ff)
-            embed.add_field(name=":white_check_mark: Sucessful!", value="Role removed")
-            embed.add_field(name="Role:", value=f"{role}", inline=False)
-            embed.add_field(name="User:", value=f"{user.mention}", inline=False)
-            await client.say(embed=embed)
-        
-        else:
-            embed = discord.Embed(color=0xff0200)
-            author = ctx.message.author
-            embed.set_author(icon_url=author.avatar_url, name="Something went wrong ;-;")
-            embed.add_field(name=":x: Error", value="You are missing the following permission: ```Manage Roles```", inline=False)
-            await client.say(embed=embed)
-        
-    except discord.Forbidden:
-        embed = discord.Embed(color=0xff0200)
-        author = ctx.message.author
-        embed.set_author(icon_url=author.avatar_url, name="An error occooured")
-        embed.add_field(name=":x: Error", value="I'm missing the following permission: ```Manage Roles```", inline=False)
-        await client.say(embed=embed)
         
 @client.command(pass_context=True)
 async def kick(ctx, user: discord.Member = None, *, reason=None):
