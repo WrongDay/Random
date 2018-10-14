@@ -118,6 +118,32 @@ async def setwelcome(ctx, *, text = None):
         json.dump(welcome,f)
 
 @client.command(pass_context=True)
+async def setgoodbye(ctx, *, text = None):
+    with open("server.json", "r") as f:
+        goodbye = json.load(f)
+    if ctx.message.author.server_permissions.manage_server:
+        if text is None:
+            embed = discord.Embed(color=0xff0200)
+            embed.add_field(name=":x: Error", value="Goodbye message can't be empty. Try again.")
+            await client.say(embed=embed)
+            return
+        if not ctx.message.server.id in goodbye :
+            goodbye[ctx.message.server.id] = {}
+            goodbye[ctx.message.server.id]["goodbye"] = "default"
+        goodbye[ctx.message.server.id]["goodbye"] = text
+        embed = discord.Embed(color=0x4e09ff)
+        embed.add_field(name=":white_check_mark: | Set goodbye to:", value=f"*{text}*", inline=True)
+        await client.say(embed=embed)
+    else:
+        embed = discord.Embed(color=0xff0200)
+        author = ctx.message.author
+        embed.set_author(icon_url=author.avatar_url, name="Uh Oh.")
+        embed.add_field(name=":x: Error", value="You are missing the following permission: ```Manage Server```", inline=False)
+        await client.say(embed=embed)
+    with open("server.json", "w") as f:
+        json.dump(goodbye,f)      
+        
+@client.command(pass_context=True)
 async def setchannel(ctx, channel_name = None):
     with open("server.json", "r") as f:
         channel = json.load(f)
@@ -143,7 +169,7 @@ async def setchannel(ctx, channel_name = None):
     with open("server.json", "w") as f:
         json.dump(channel,f)     
     
-client.event
+@client.event
 async def on_member_join(member):
     with open("server.json", "r") as f:
         join = json.load(f)
@@ -154,6 +180,18 @@ async def on_member_join(member):
     await client.send_message(channel, f"{member.mention}, {welcomes}")
     with open("server.json", "w") as f:
         json.dump(join,f) 
+    
+@client.event
+async def on_member_remove(member):
+    with open("server.json", "r") as f:
+        bye = json.load(f)
+    server = member.server
+    goodbyess = bye[member.server.id]["goodbye"]
+    channels = bye[member.server.id]["channel"]
+    channel = discord.utils.get(server.channels, name=channels)
+    await client.send_message(channel, f"{member.mention}, {goodbyess}")
+    with open("server.json", "w") as f:
+        json.dump(bye,f)
     
 @client.command(pass_context=True)
 async def help(ctx):
