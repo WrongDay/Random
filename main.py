@@ -181,13 +181,26 @@ async def work(ctx):
     if not author.id in coins[ctx.message.server.id]:
         coins[ctx.message.server.id][author.id] = 0
     coins[ctx.message.server.id][author.id] += coinsc
-    embed = discord.Embed(color=0x1434a3)
+    embed = discord.Embed(color=0x00ff00)
     embed.add_field(name=":dollar: | Payment amount:", value=f"${coinsc}", inline=False)
     embed.set_footer(icon_url=author.avatar_url, text="Economy Commands!")
     await client.say(embed=embed)
     with open("economy.json", "w") as f:
         json.dump(coins, f, indent=4)
 
+@client.command(pass_context=True)
+async def bal(ctx):
+    with open("economy.json", "r") as f:
+        coins = json.load(f)
+    author = ctx.message.author
+    if not author.id in coins[ctx.message.server.id]:
+        coins[ctx.message.server.id][author.id] = 0
+    coinss = coins[ctx.message.server.id][author.id]
+    embed = discord.Embed(color=0x00ff00)
+    embed.add_field(name="<:money:497965184309002250> | Your balance:", value=f"${coinss}", inline=False)
+    embed.set_footer(icon_url=author.avatar_url, text="Economy Commands!")
+    await client.say(embed=embed)       
+            
 #Moderation commands
 @client.command(pass_context=True)
 @commands.has_permissions(manage_messages=True)
