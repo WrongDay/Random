@@ -205,6 +205,20 @@ async def timer(ctx, time=None):
     embed.set_footer(text='Timer:')
     await client.say(embed=embed)       
         
+#Music
+@client.command(pass_context=True)
+async def join(ctx):
+    channel = ctx.message.author.voice.voice_channel
+    await client.join_voice_channel(channel)
+    await client.say('I have joined the Voice Channel!')
+
+@client.command(pass_context=True)
+async def leave(ctx):
+    server = ctx.message.server
+    voice_client = client.voice_client_in(server)
+    await voice_client.disconnect()
+    await client.say('I have left the Voice Channel!')
+        
 #Economy
 @client.command(pass_context=True)
 @commands.cooldown(1, 120, commands.BucketType.user)
