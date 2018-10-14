@@ -88,7 +88,35 @@ async def prefix(ctx, new_prefix):
         
     with open("serverConfig.json", "w") as f:
         json.dump(prefixes, f)
-    
+ 
+@client.command(pass_context=True)
+async def setwelcome(ctx, *, text = None):
+    with open("server.json", "r") as f:
+        welcome = json.load(f)
+    if ctx.message.author.server_permissions.manage_server:
+        if text is None:
+            embed = discord.Embed(color=0xff0200)
+            embed.add_field(name=":x: Error", value="Welcome message can't be empty. Try again.")
+            await client.say(embed=embed)
+            return
+        
+        if not ctx.message.server.id in welcome:
+            welcome[ctx.message.server.id] = {}
+            welcome[ctx.message.server.id]["welcome"] = "default"
+        welcome[ctx.message.server.id]["welcome"] = text
+        embed = discord.Embed(color=0x4e09ff)
+        embed.add_field(name=":white_check_mark: | Set welcome to:", value=f"*{text}*", inline=True)
+        await client.say(embed=embed)
+ 
+    else:
+        embed = discord.Embed(color=0xff0200)
+        author = ctx.message.author
+        embed.set_author(icon_url=author.avatar_url, name="Something went wrong ;-;")
+        embed.add_field(name=":x: Error", value="You are missing the following permission: ```Permissions: Manage Server```", inline=False)
+        await client.say(embed=embed)
+    with open("server.json", "w") as f:
+        json.dump(welcome,f)
+
 @client.command(pass_context=True)
 async def help(ctx):
   author = ctx.message.author
