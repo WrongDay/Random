@@ -141,7 +141,7 @@ async def coinflip(ctx):
 @client.command(pass_context=True)
 async def meme():
     memes_submissions = reddit.subreddit("memes").hot()
-    post_to_pick = random.radint(1, 10)
+    post_to_pick = random.randint(1, 10)
     for i in range(0, post_to_pick):
         submission = next(x for x in memes_submissions if not x.stickied)
     await client.say(submission.url)
