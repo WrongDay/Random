@@ -118,6 +118,32 @@ async def setwelcome(ctx, *, text = None):
         json.dump(welcome,f)
 
 @client.command(pass_context=True)
+async def setchannel(ctx, channel_name = None):
+    with open("server.json", "r") as f:
+        channel = json.load(f)
+    if ctx.message.author.server_permissions.manage_server:
+        if channel_name is None:
+            embed = discord.Embed(color=0xff0200)
+            embed.add_field(name=":x: Error", value="You need to specify a channel! Try again.")
+            await client.say(embed=embed)
+            return
+        if not ctx.message.server.id in channel :
+            channel[ctx.message.server.id] = {}
+            channel[ctx.message.server.id]["channel"] = "default"
+        channel[ctx.message.server.id]["channel"] = channel_name
+        embed = discord.Embed(color=0x4e09ff)
+        embed.add_field(name=":white_check_mark: | Set channel to:", value=f"*{channel_name}*", inline=True)
+        await client.say(embed=embed)
+    else:
+        embed = discord.Embed(color=0xff0200)
+        author = ctx.message.author
+        embed.set_author(icon_url=author.avatar_url, name="Something went wrong ;-;")
+        embed.add_field(name=":x: Error", value="You are missing the following permission: ```Manage Server```", inline=False)
+        await client.say(embed=embed)
+    with open("server.json", "w") as f:
+        json.dump(channel,f)     
+        
+@client.command(pass_context=True)
 async def help(ctx):
   author = ctx.message.author
 
