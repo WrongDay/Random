@@ -232,11 +232,11 @@ async def removerole(ctx, user: discord.Member = None, *, name = None):
             if role is None:
                 embed = discord.Embed(color=0xff0200)
                 embed.set_author(icon_url=author.avatar_url, name="Something went wrong ;-;")
-                embed.add_field(name=":x: Error", value=f"You made an mistake! ```Error: No role called; {name}```")
+                embed.add_field(name=":x: Error", value=f"You made an mistake! Makes sure you specify the role exactly how it's named. ```Error: No role called; {name}```")
                 await client.say(embed=embed)
                 return
             await client.remove_roles(user, role)
-            embed = discord.Embed(color=0x4e09ff)
+            embed = discord.Embed(color=0x00ff00)
             embed.add_field(name=":white_check_mark: Sucessful!", value="Role removed")
             embed.add_field(name="Role:", value=f"{role}", inline=False)
             embed.add_field(name="User:", value=f"{user.mention}", inline=False)
