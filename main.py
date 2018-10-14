@@ -259,7 +259,7 @@ async def ban(ctx, user: discord.Member = None, *, reason=None):
     author = ctx.message.author
     server = ctx.message.server
     
-   if ctx.message.author.server_permissions.ban_members:
+    if ctx.message.author.server_permissions.ban_members:
         if user is None:
             embed = discord.Embed(color=0xff0000)
             embed.set_author(name='You made a error!')
