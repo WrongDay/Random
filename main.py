@@ -193,6 +193,7 @@ async def ping(ctx):
 
 @client.command(pass_context=True)
 async def credits(ctx):
+    author = ctx.message.author
     embed = discord.Embed(color = 0x00ff00)
     embed.set_author(name = "Below are some people who helped with the bot development :D")
     embed.add_field(name = "Savage#5185", value = "-helped with .json files, some of these commands won't be possible without him")
