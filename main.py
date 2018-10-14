@@ -275,8 +275,15 @@ async def addrole(ctx, user: discord.Member = None, *, name = None):
             embed.set_author(icon_url=author.avatar_url, name="Something went wrong ;-;")
             embed.add_field(name=":x: Error", value="You are missing the following permission: ```Manage Roles```", inline=False)
             await client.say(embed=embed)
+            
     except discord.Forbidden:
-        embed = discord.Embed(color=@client.command(pass_context=True)
+        embed = discord.Embed(color=0xff0200)
+        author = ctx.message.author
+        embed.set_author(icon_url=author.avatar.url, name="An error had occured!")
+        embed.add_field(name=":x: Error", value="I'm missing the following permission: ```Manage Roles```", inline=False)
+        await client.say(embed=embed)
+                      
+@client.command(pass_context=True)
 async def timer(ctx, time=None):
     if time is None:
         embed = discord.Embed(color=0xff0200)
