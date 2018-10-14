@@ -23,7 +23,7 @@ def prefix(bot, message):
 Client = discord.Client()
 client = commands.Bot(command_prefix=prefix)
 client.remove_command('help')
-status = ['Work in progress :/', 'Online 247', 'Made by Wrong#4794']
+status = ['Work in progress :/', ';-;', 'Made by Wrong#4794']
 
 async def change_status():
   await client.wait_until_ready()
@@ -31,7 +31,7 @@ async def change_status():
 
   while not client.is_closed:
     current_status = next(msgs)
-    await client.change_presence(game=discord.Game(name=current_status))
+    await client.change_presence(game=discord.Game(name=current_status), type = 3)
     print()
     await asyncio.sleep(10)
 
