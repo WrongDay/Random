@@ -197,7 +197,7 @@ async def bal(ctx):
         coins[ctx.message.server.id][author.id] = 0
     coinss = coins[ctx.message.server.id][author.id]
     embed = discord.Embed(color=0x00ff00)
-    embed.add_field(name="<:money:497965184309002250> | Your balance:", value=f"${coinss}", inline=False)
+    embed.add_field(name="<:dollar: | Your balance:", value=f"${coinss}", inline=False)
     embed.set_footer(icon_url=author.avatar_url, text="Economy Commands!")
     await client.say(embed=embed)       
             
