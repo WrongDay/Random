@@ -47,7 +47,7 @@ async def on_server_join(server):
     
 @client.event 
 async def on_message(message):
-  if message.content.startswith(prefix + 'reverse'):
+  if message.content.startswith('w!reverse') == True:
         await client.send_message(message.channel, message.content[:8:-1])
       
   if message.content.startswith('w!search'):
@@ -178,6 +178,12 @@ async def ping(ctx):
     embed=discord.Embed(title="My ping:", description='**Latency: {}ms**'.format(round((t2-t1)*1000)), color=0x00ff00)
     await client.say(embed=embed)
 
+@client.command(pass_context=True)
+async def invite(ctx):
+    embed = discord.Embed(color=0x1434a3)
+    embed.add_field(name="Invite Link!", value="Click here to invite me! Don't forget to upvote me ;D (https://discordbots.org/bot/492031267483811850)")
+    await client.say(embed=embed)    
+    
 @client.command(pass_context=True)
 async def timer(ctx, time=None):
     if time is None:
