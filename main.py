@@ -47,7 +47,7 @@ async def on_server_join(server):
     
 @client.event 
 async def on_message(message):
-  if message.content.startswith('w!reverse') == True:
+  if message.content.startswith(prefix + 'reverse'):
         await client.send_message(message.channel, message.content[:8:-1])
       
   if message.content.startswith('w!search'):
