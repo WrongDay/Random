@@ -355,7 +355,7 @@ async def mute(ctx, user: discord.Member = None):
                 await client.say(embed=embed)
                 return
             await client.add_roles(user, MutedRole)
-            embed = discord.Embed(color=0x4e09ff)
+            embed = discord.Embed(color=0x00ff00)
             embed.add_field(name=":white_check_mark: Sucessful!", value="User muted")
             embed.add_field(name="User:", value=f"{user.mention}", inline=False)
             embed.add_field(name="User ID:", value=f"{user.id}", inline=False)
@@ -376,6 +376,50 @@ async def mute(ctx, user: discord.Member = None):
         embed = discord.Embed(color=0xff0200)
         embed.add_field(name=":x: Error", value="Sorry for thr inconvience, an unexpected error had occured ;-;")
         await client.say(embed=embed)
+        
+@client.command(pass_context=True)
+async def unmute(ctx, user: discord.Member = None):
+    try:
+        if ctx.message.author.server_permissions.mute_members:
+            MutedRole = discord.utils.get(ctx.message.server.roles, name="Muted")
+            if user is None:
+                embed = discord.Embed(color=0xff0200)
+                embed.add_field(name=":x: Error", value="Please specify a user!")
+                await client.say(embed=embed)
+                return
+            
+            if MutedRole is None:
+                embed = discord.Embed(color=0xff0200)
+                author = ctx.message.author
+                embed.set_author(icon_url=author.avatar_url, name="Something went wrong ;-;")
+                embed.add_field(name=":x: Error", value="User dosen't have the 'Muted' role.")
+                await client.say(embed=embed)
+                return
+            
+            await client.remove_roles(user, MutedRole)
+            embed = discord.Embed(color=0x00ff00)
+            embed.add_field(name=":white_check_mark: Sucessful!", value="User unmuted")
+            embed.add_field(name="User:", value=f"{user.mention}", inline=False)
+            embed.add_field(name="User ID:", value=f"{user.id}", inline=False)
+            await client.say(embed=embed)
+            
+        else:
+            embed = discord.Embed(color=0xff0200)
+            author = ctx.message.author
+            embed.set_author(icon_url=author.avatar_url, name="Something went wrong ;-;")
+            embed.add_field(name=":x: Error", value="You are missing the following permissiom: ```Mute Members```", inline=False)
+            await client.say(embed=embed)
+            
+    except discord.Forbidden:
+        embed = discord.Embed(color=0xff0200)
+        author = ctx.message.author
+        embed.set_author(icon_url=author.avatar_url, name="An error had occured ;-;")
+        embed.add_field(name=":x: Error", value="I'm missing the following permission: ```Mute Members```", inline=False)
+        await client.say(embed=embed)
+    except discord.HTTPException:
+        embed = discord.Embed(color=0xff0200)
+        embed.add_field(name=":x: Error", value="Sorry for the inconvience. An unexpected error occured ;-;")
+        await client.say(embed=embed)      
         
 @client.command(pass_context=True)
 async def kick(ctx, user: discord.Member = None, *, reason=None):
