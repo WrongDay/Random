@@ -336,7 +336,38 @@ async def removerole(ctx, user: discord.Member = None, *, name = None):
         embed.set_author(icon_url=author.avatar_url, name="An error had occured!")
         embed.add_field(name=":x: Error", value="I'm missing the following permission: ```Manage Roles```", inline=False)
         await client.say(embed=embed)
-
+ 
+                embed.add_field(name="Error: Please make sure you set up a role named 'Muted' with the correct permission"
+                await client.say(embed=embed)
+                return                               
+  
+            await client.add_roles(user, MutedRole)
+            embed = discord.Embed(color=0x4e09ff)
+            embed.add_field(name=":white_check_mark: Sucessful!", value="User muted")
+            embed.add_field(name='Server:', value='**{}**'.format(server.name), inline=False)                   
+            embed.add_field(name="User:", value=f"{user.mention}", inline=False)
+            embed.add_field(name='Reason:', value='**{0}**'.format(reason), inline=False)                    
+            embed.add_field(name='Moderator:', value='**{}**'.format(author.name), inline=False)         
+            await client.say(embed=embed)                               
+                                
+        else:
+            embed = discord.Embed(color=0xff0200)
+            author = ctx.message.author
+            embed.set_author(icon_url=author.avatar_url, name="Something went wrong ;-;")
+            embed.add_field(name=":x: Error", value="You are missing the following permission: ```Mute Members```", inline=False)
+            await client.say(embed=embed)
+    except discord.Forbidden:
+        embed = discord.Embed(color=0xff0200)
+        author = ctx.message.author
+        embed.set_author(icon_url=author.avatar_url, name="An error had occured!")
+        embed.add_field(name=":x: Error", value="I'm missing the following permission: ```Mute Members```", inline=False)
+        await client.say(embed=embed)
+                                
+    except discord.HTTPException:
+        embed = discord.Embed(color=0xff0200)
+        embed.add_field(name=":x: Error", value="Sorry for the inconvience. An unknown error had occured ;-;")
+        await client.say(embed=embed)                 
+        
 @client.command(pass_context=True)
 async def kick(ctx, user: discord.Member = None, *, reason=None):
     author = ctx.message.author
