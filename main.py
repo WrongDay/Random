@@ -225,7 +225,7 @@ async def work(ctx):
     with open("economy.json", "w") as f:
         json.dump(coins, f, indent=4)
 
- @work.error
+@work.error
 async def cooldown_error(error, ctx):
     if isinstance(error, commands.CommandOnCooldown):
         author = ctx.message.author
