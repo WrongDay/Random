@@ -225,6 +225,15 @@ async def work(ctx):
     with open("economy.json", "w") as f:
         json.dump(coins, f, indent=4)
 
+ @work.error
+async def cooldown_error(error, ctx):
+    if isinstance(error, commands.CommandOnCooldown):
+        author = ctx.message.author
+        embed = discord.Embed(color=0x1434a3)
+        embed.add_field(name="Calm Down!", value="Work command is on cooldown for 2 minutes.")
+        embed.set_footer(icon_url=author.avatar_url, text="Economy Commands!")
+        await client.say(embed=embed)
+       
 @client.command(pass_context=True)
 async def bal(ctx):
     with open("economy.json", "r") as f:
