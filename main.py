@@ -6,6 +6,7 @@ import time
 import os
 import asyncio
 import random
+import praw
 import datetime
 from datetime import datetime
 from itertools import cycle
@@ -72,6 +73,10 @@ async def on_message(message):
         
   await client.process_commands(message)
    
+reddit = praw.Reddit(client_id = "492031267483811850",
+                     client_secret = os.environ.get("clientsecret"),
+                     user_agent = "wrongbot by u/wrongday247")
+    
  #CONFIGS
 @client.command(name="prefix", pass_context=True)
 async def prefix(ctx, new_prefix):
@@ -132,6 +137,14 @@ async def coinflip(ctx):
     flip = random.choice(pick)
     await client.say ("The coin landed on " + flip + '!')
     return
+
+@client.command(pass_context=True)
+async def meme():
+    memes_submissions = reddit.subreddit("memes").hot()
+    post_to_pick = random.radint(1, 10)
+    for i in range(0, post_to_pick):
+        submission = next(x for x in memes_submissions if not x.stickied)
+    await client.say(submission.url)
 
 @client.command(pass_context=True)
 async def userinfo(ctx, user: discord.Member):
