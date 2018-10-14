@@ -198,7 +198,7 @@ async def addrole(ctx, user: discord.Member = None, *, name = None):
                 await client.say(embed=embed)
                 return
             await client.add_roles(user, role)
-            embed = discord.Embed(color=0x4e09ff)
+            embed = discord.Embed(color=0x00ff00)
             embed.add_field(name=":white_check_mark: Sucessful!", value="Role suceesfully added!")
             embed.add_field(name="Role:", value=f"{role}", inline=False)
             embed.add_field(name="User:", value=f"{user.mention}", inline=False)
