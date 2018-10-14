@@ -192,6 +192,15 @@ async def ping(ctx):
     await client.say(embed=embed)
 
 @client.command(pass_context=True)
+async def credits(ctx):
+    embed = discord.embed(color = 0x00ff00)
+    embed.set_author(name = "Below are some people who helped with the bot development :D")
+    embed.add_field(name = "Savage#5185", value = "-helped with .json files, some of these commands won't be possible without him
+    embed.add_field(name = "TheRedMammon#2485", value = "- helps with debugging errors"
+    embed.set_footer(icon_url = author.avatar.url, text = "Thank you so much :)")
+    await client.say(embed=embed)               
+    
+@client.command(pass_context=True)
 async def invite(ctx):
     embed = discord.Embed(color=0x1434a3)
     embed.add_field(name="Invite Link!", value="Click here to invite me! Don't forget to upvote me ;D (https://discordbots.org/bot/492031267483811850)")
