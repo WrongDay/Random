@@ -168,6 +168,15 @@ async def uptime(ctx):
     embed.add_field(name="WrongBot's Uptime", value=f"I've been online for **{elapsed.days}** days, **{hours}** hours, **{minutes}** minutes, **{seconds}** seconds")
     await client.say(embed=embed)
   
+@client.command(pass_context=True)
+async def ping(ctx):
+        channel = ctx.message.channel
+        t1 = time.perf_counter()
+        await client.send_typing(channel)
+        t2 = time.perf_counter()
+        embed=discord.Embed(title="My ping:", description='**Latency: {}ms**'.format(round((t2-t1)*1000)), color=0x00ff00)
+        await client.say(embed=embed)
+
 #Economy
 @client.command(pass_context=True)
 @commands.cooldown(1, 120, commands.BucketType.user)
