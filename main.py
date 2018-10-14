@@ -165,7 +165,7 @@ async def stats(ctx):
     minutes, seconds = divmod(seconds, 60)
     hours, minutes = divmod(minutes, 60)
     embed = discord.Embed(color=0x00ff00)
-    embed.add_field(name="Stats", value=f"Connected to {len(client.servers)} servers
+    embed.add_field(name="Stats", value=f"Connected to {len(client.servers)} servers")
     embed.add_field(name="WrongBot's Uptime", value=f"I've been online for **{elapsed.days}** days, **{hours}** hours, **{minutes}** minutes, **{seconds}** seconds")
     await client.say(embed=embed)
   
