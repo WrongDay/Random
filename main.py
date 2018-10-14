@@ -182,7 +182,7 @@ async def work(ctx):
         coins[ctx.message.server.id][author.id] = 0
     coins[ctx.message.server.id][author.id] += coinsc
     embed = discord.Embed(color=0x1434a3)
-    embed.add_field(name="<:money:497965184309002250> | Payment amount:", value=f"${coinsc}", inline=False)
+    embed.add_field(name=":dollar: | Payment amount:", value=f"${coinsc}", inline=False)
     embed.set_footer(icon_url=author.avatar_url, text="Economy Commands!")
     await client.say(embed=embed)
     with open("economy.json", "w") as f:
