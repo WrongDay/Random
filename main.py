@@ -177,6 +177,27 @@ async def ping(ctx):
         embed=discord.Embed(title="My ping:", description='**Latency: {}ms**'.format(round((t2-t1)*1000)), color=0x00ff00)
         await client.say(embed=embed)
 
+@client.command(pass_context=True)
+async def timer(ctx, time=None):
+    if time is None:
+        embed = discord.Embed(color=0xff00f0)
+        embed.add_field(name=':x: **Error**', value='Please specify the amount of second!', inline=False)
+        await client.say(embed=embed)
+    channel = ctx.message.channel
+    author = ctx.message.author
+    message = []
+    embed = discord.Embed(color=0xff00f0)
+    embed.add_field(name=':stopwatch: Timer!:', value='Timer set for **{}** seconds'.format(int(time), inline=True))
+    embed.set_footer(text='Timer:')
+    await client.say(embed=embed)
+    await asyncio.sleep(int(time))
+    msg=await client.say('{}'.format(author.mention))
+    await client.delete_message(msg)
+    embed = discord.Embed(color=0xff00f0)
+    embed.add_field(name=':stopwatch:', value='Time is up **{}**'.format(author.name), inline=True)
+    embed.set_footer(text='Timer:')
+    await client.say(embed=embed)       
+        
 #Economy
 @client.command(pass_context=True)
 @commands.cooldown(1, 120, commands.BucketType.user)
@@ -255,7 +276,27 @@ async def addrole(ctx, user: discord.Member = None, *, name = None):
             embed.add_field(name=":x: Error", value="You are missing the following permission: ```Manage Roles```", inline=False)
             await client.say(embed=embed)
     except discord.Forbidden:
+        embed = discord.Embed(color=@client.command(pass_context=True)
+async def timer(ctx, time=None):
+    if time is None:
         embed = discord.Embed(color=0xff0200)
+        embed.add_field(name=':interrobang: **Error**', value='Oops! Please define the seconds you want me to set for you!', inline=False)
+        embed.set_footer(text='Please set a timer >timer <amount>')
+        await client.say(embed=embed)
+    channel = ctx.message.channel
+    author = ctx.message.author
+    message = []
+    embed = discord.Embed(color=0xff00f0)
+    embed.add_field(name=':stopwatch: Timer!:', value='Timer set for **{}** seconds'.format(int(time), inline=True))
+    embed.set_footer(text='Timer:')
+    await client.say(embed=embed)
+    await asyncio.sleep(int(time))
+    msg=await client.say('{}'.format(author.mention))
+    await client.delete_message(msg)
+    embed = discord.Embed(color=0xff00f0)
+    embed.add_field(name=':stopwatch: Timer Up:', value='Timer is up **{}**'.format(author.name), inline=True)
+    embed.set_footer(text='Timer:')
+    await client.say(embed=embed))
         author = ctx.message.author
         embed.set_author(icon_url=author.avatar_url, name="An error had occured!")
         embed.add_field(name=":x: Error", value="I'm missing the following permission: ```Manage Roles```", inline=False)
