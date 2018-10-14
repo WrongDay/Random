@@ -303,7 +303,7 @@ async def timer(ctx, time=None):
     embed = discord.Embed(color=0xff00f0)
     embed.add_field(name=':stopwatch: Timer Up:', value='Timer is up **{}**'.format(author.name), inline=True)
     embed.set_footer(text='Timer:')
-    await client.say(embed=embed))
+    await client.say(embed=embed)
         author = ctx.message.author
         embed.set_author(icon_url=author.avatar_url, name="An error had occured!")
         embed.add_field(name=":x: Error", value="I'm missing the following permission: ```Manage Roles```", inline=False)
