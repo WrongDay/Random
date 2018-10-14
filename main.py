@@ -168,6 +168,26 @@ async def uptime(ctx):
     embed.add_field(name="WrongBot's Uptime", value=f"I've been online for **{elapsed.days}** days, **{hours}** hours, **{minutes}** minutes, **{seconds}** seconds")
     await client.say(embed=embed)
   
+#Economy
+@client.command(pass_context=True)
+@commands.cooldown(1, 120, commands.BucketType.user)
+async def work(ctx):
+    with open("economy.json", "r") as f:
+       	coins = json.load(f)
+    author = ctx.message.author
+    coinsc = random.randint(1, 100)
+    if not ctx.message.server.id in coins:
+       	coins[ctx.message.server.id] = {}
+    if not author.id in coins[ctx.message.server.id]:
+        coins[ctx.message.server.id][author.id] = 0
+    coins[ctx.message.server.id][author.id] += coinsc
+    embed = discord.Embed(color=0x1434a3)
+    embed.add_field(name="<:money:497965184309002250> | Payment amount:", value=f"${coinsc}", inline=False)
+    embed.set_footer(icon_url=author.avatar_url, text="Economy Commands!")
+    await client.say(embed=embed)
+    with open("economy.json", "w") as f:
+        json.dump(coins, f, indent=4)
+
 #Moderation commands
 @client.command(pass_context=True)
 @commands.has_permissions(manage_messages=True)
