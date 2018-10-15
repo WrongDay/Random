@@ -198,7 +198,6 @@ async def credits(ctx):
     embed.set_author(name = "Below are some people who helped with the bot development :D")
     embed.add_field(name = "Savage#5185", value = "-helped with .json files, some of these commands won't be possible without him")
     embed.add_field(name = "TheRedMammon#2485", value = "- helps with debugging errors")
-    embed.set_footer(icon_url = author.avatar.url, text = "Thank you so much :)")
     await client.say(embed=embed)               
     
 @client.command(pass_context=True)
