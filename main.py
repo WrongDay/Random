@@ -83,7 +83,7 @@ async def on_message(message):
             em = discord.Embed(title= 'A top post from r/%s : '%(" ".join(args[1:])) + (name), url='https://www.reddit.com%s' %(comments), colour= 0xe2240f)
             em.set_footer(text = 'Upvotes: %s' %(score))
             em.set_thumbnail(url = (url))
-            await client.send_message(message.channel, embed = em)```<@!365977869903593483> <@!481270883701358602>
+            await client.send_message(message.channel, embed = em)
 
   await client.process_commands(message)
     
