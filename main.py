@@ -149,14 +149,6 @@ async def coinflip(ctx):
     return
 
 @client.command(pass_context=True)
-async def meme():
-    memes_submissions = reddit.subreddit("memes").hot()
-    post_to_pick = random.randint(1, 10)
-    for i in range(0, post_to_pick):
-        submission = next(x for x in memes_submissions if not x.stickied)
-    await client.say(submission.url)
-
-@client.command(pass_context=True)
 async def userinfo(ctx, user: discord.Member):
     embed = discord.Embed(title="{}'s info".format(user.name), description="Here's the info.", color=0x00ff00)
     embed.add_field(name="Name", value=user.name, inline=True)
