@@ -235,14 +235,42 @@ async def timer(ctx, time=None):
 async def join(ctx):
     channel = ctx.message.author.voice.voice_channel
     await client.join_voice_channel(channel)
-    await client.say('I have joined the Voice Channel!')
+    await client.say("Joined")
 
 @client.command(pass_context=True)
 async def leave(ctx):
     server = ctx.message.server
     voice_client = client.voice_client_in(server)
     await voice_client.disconnect()
-    await client.say('I have left the Voice Channel!')
+    await client.say("Left")
+
+players = {}
+@client.command(pass_context=True)
+async def play(ctx, url):
+    server = ctx.message.server
+    voice_client = client.voice_client_in(server)
+    player = await voice_client.create_ytdl_player(url)
+    players[server.id] = player
+    player.start()
+    await client.say("Playing")
+
+@client.command(pass_context=True)
+async def pause(ctx):
+    id = ctx.message.server.id
+    players[id].pause()
+    await client.say("Paused")
+
+@client.command(pass_context=True)
+async def stop(ctx):
+    id = ctx.message.server.id
+    players[id].stop()
+    await client.say("Stopped")
+
+@client.command(pass_context=True)
+async def resume(ctx):
+    id = ctx.message.server.id
+    players[id].resume()
+    await client.say("Resumed")
         
 #Economy
 @client.command(pass_context=True)
