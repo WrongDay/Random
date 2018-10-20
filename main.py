@@ -149,6 +149,7 @@ async def meme(ctx):
 
             await client.say(embed=embed)
 
+#Helpful commands            
 @client.command(pass_context = True)
 async def avatar(ctx, user: discord.Member = None):
     await client.send_typing(ctx.message.channel)
@@ -188,6 +189,14 @@ async def serverinfo(ctx):
     embed.set_thumbnail(url=ctx.message.server.icon_url)
     await client.say(embed=embed)
     return 
+
+@client.command(pass_context=True)
+async def suggest(ctx, *, suggestion):
+    author = ctx.message.author
+    embed = discord.Embed(title="Suggestion:", description="{0} , {1} , {2}".format(author, author.mention, author.id), color=0xe91e63)
+    embed.add_field(name=":inbox_tray:",
+                       value="{}".format(suggestion), inline=False)
+    embed.set_footer(text="Thanks for suggesting")
 
 @client.command(pass_context=True)
 async def stats(ctx):
