@@ -723,7 +723,7 @@ async def ban(ctx, user: discord.Member = None, *, reason=None):
         return
         
 @client.command(pass_context=True, hidden=True)
-@checks.is_owner()
+@commands.has_role("Owner")
 async def debug(self, ctx, *, code : str):
     code = code.strip('` ')
     python = '```py\n{}\n```'
