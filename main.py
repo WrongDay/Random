@@ -667,7 +667,7 @@ async def kick(ctx, user: discord.Member = None, *, reason = None):
             
             if user is None:
                 embed = discord.Embed(color=0xff0200)
-                embed.add_field(name=":x: Error: ", value="```You can't kick yourself```"), inline=False)
+                embed.add_field(name=":x: Error: ", value="```You can't kick yourself```", inline=False)
                 embed.set_footer(icon_url=author.avatar_url, text="Error created by: {}".format(author.name))
                 await client.say(embed=embed)
                 return
