@@ -666,7 +666,7 @@ async def kick(ctx, user: discord.Member = None, *, reason = None):
             
             if user is None:
                 embed = discord.Embed(color=0xff0200)
-                embed.set_author(icon_url=author.avatar_url, name="Uh Oh.")
+                embed.set_author(icon_url=author.avatar_url, name="Error:")
                 embed.add_field(name=":x: Error:", value="```Failed to specify a user```", inline=False)
                 embed.set_footer(icon_url=author.avatar_url, text="| Moderation commands!")
                 await client.say(embed=embed)
