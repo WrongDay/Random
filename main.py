@@ -649,35 +649,34 @@ async def unmute(ctx, user: discord.Member = None):
 async def kick(ctx, user: discord.Member = None, *, reason=None):
     author = ctx.message.author
     server = ctx.message.server
-    
-    if ctx.message.author.server_permissions.kick_members:
-        if ctx.message.author.bot:
+    try:
+        if ctx.message.author.server_permissions.kick_members:
+            if ctx.message.author.bot:
+                embed = discord.Embed(color=0xff0000)
+                embed.add_field(name="Error:", value="This command is blocked for bots.")
+                embed.set_footer(icon_url=author.avatar_url, text="| Moderation commands!")
+                await client.say(embed=embed)
+        
+        if user is None:
             embed = discord.Embed(color=0xff0000)
-            embed.add_field(name="Error:", value="This command is blocked for bots.")
-            embed.set_footer(icon_url=author.avatar_url, text="| Moderation commands!")
+            embed.add_field(name=':x: Error: ', value='```Fail to specify a user```', inline=False)
+            embed.set_footer(icon_url=author.avatar_url, text=f"Error created by: {author.name}")
             await client.say(embed=embed)
         
-    if user is None:
-        embed = discord.Embed(color=0xff0000)
-        embed.add_field(name=':x: Error: ', value='```Fail to specify a user```', inline=False)
-        embed.set_footer(icon_url=author.avatar_url, text=f"Error created by: {author.name}")
-        await client.say(embed=embed)
-        return 
-        
-    if author == user:
-        embed = discord.Embed(color=0xff0000)
-        embed.add_field(name=":x: Error: ", value="You can't kick yourself")
-        embed.set_footer(icon_url=author.avatar_url, text=f"Error created by: {author.name}")
+        if author == user:
+            embed = discord.Embed(color=0xff0000)
+            embed.add_field(name=":x: Error: ", value="You can't kick yourself")
+            embed.set_footer(icon_url=author.avatar_url, text=f"Error created by: {author.name}")
     
-    await client.kick(user)
-    embed = discord.Embed(color=0x00ff00)
-    embed.set_author(name='Kicked {}'.format(user.name)
-    embed.add_field(name='Server:', value='{}'.format(server.name), inline=False)
-    embed.add_field(name='Reason:', value='{0}'.format(reason), inline=True)
-    embed.add_field(name='Kicked by:', value='**{}**'.format(author.name), inline=False)
-    embed.set_thumbnail(url=user.avatar_url)
-    embed.set_footer(icon_url=author.avatar_url, text=f"{author.name} sucessfully kicked {user.name}")
-    await client.say(embed=embed)
+        embed = discord.Embed(color=0x00ff00)
+        embed.set_author(name='Kicked {}'.format(user.name)
+        embed.add_field(name='Server:', value='{}'.format(server.name), inline=False)
+        embed.add_field(name='Reason:', value='{0}'.format(reason), inline=True)
+        embed.add_field(name='Kicked by:', value='**{}**'.format(author.name), inline=False)
+        embed.set_thumbnail(url=user.avatar_url)
+        embed.set_footer(icon_url=author.avatar_url, text=f"{author.name} sucessfully kicked {user.name}")
+        await client.kick(user)
+        await client.say(embed=embed)
 
     embed = discord.Embed(color=0x00ff00)
     embed.set_author(name='You got kicked ;-;')
