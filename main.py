@@ -182,6 +182,7 @@ async def userinfo(ctx, user: discord.Member = None):
         await client.say(embed=embed)
         
     else:
+        author = user
         embed = discord.Embed(title="{}'s info".format(user.name), description="Here's the info.", color=0x00ff00)
         embed.add_field(name="Name", value=user.name, inline=True)
         embed.add_field(name="Nickname:", value=user.display_name, inline=True)
