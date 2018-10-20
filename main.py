@@ -193,10 +193,10 @@ async def serverinfo(ctx):
 @client.command(pass_context=True)
 async def suggest(ctx, *, suggestion):
     author = ctx.message.author
-    embed = discord.Embed(title="Suggestion:", description="{0} , {1} , {2}".format(author, author.mention, author.id), color=0xe91e63)
+    embed = discord.Embed(title="Suggestion:", description="{0} , {1} , {2}".format(ctx.message.author,ctx.message.author.mention, ctx.message.author.id), color=0x00ff00)
     embed.add_field(name=":inbox_tray:",
                        value="{}".format(suggestion), inline=False)
-    embed.set_footer(text="Thanks for suggesting")
+    embed.set_footer(text="Thanks for suggesting!")
 
 @client.command(pass_context=True)
 async def stats(ctx):
