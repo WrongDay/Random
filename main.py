@@ -646,49 +646,58 @@ async def unmute(ctx, user: discord.Member = None):
         await client.say(embed=embed)      
         
 @client.command(pass_context=True)
-async def kick(ctx, user: discord.Member = None):
+async def kick(ctx, user: discord.Member = None, *, reason = None):
     author = ctx.message.author
     try:
         if ctx.message.author.server_permissions.kick_members:
             if ctx.message.author.bot:
                 embed = discord.Embed(color=0xff0200)
-                embed.add_field(name=":white_check_mark: Sucessful!", value="Haha. You thought, next time don't use a bot to try to kick!")
+                embed.add_field(name=":x: Error:", value="This command is blocked for bots.")
+                embed.set_footer(icon_url=author.avatar_url, text="| Moderation commands!")
                 await client.say(embed=embed)
                 return
+            
             if author == user:
                 embed = discord.Embed(color=0xff0200)
                 embed.set_author(icon_url=author.avatar_url, name="Uh Oh.")
-                embed.add_field(name=":x: Error", value="Please use common sense. ```Error: Kicking your self is unwise.```", inline=False)
+                embed.add_field(name=":x: Error:", value="```Failed to specify a user```", inline=False)
+                embed.set_footer(icon_url=author.avatar_url, text="| Moderation commands!")
                 await client.say(embed=embed)
                 return
+            
             if user is None:
                 embed = discord.Embed(color=0xff0200)
-                embed.set_author(icon_url=author.avatar_url, name="Uh Oh.")
-                embed.add_field(name=":x: Error", value="You are missing some arguments. ```User is a required argument..```", inline=False)
-                embed.set_footer(text=f"Error Created by: {author.name}")
+                embed.add_field(name=":x: Error: ", value="```You can't kick yourself```"), inline=False)
+                embed.set_footer(icon_url=author.avatar_url, text="Error created by: {}".format(author.name))
                 await client.say(embed=embed)
                 return
+            
             await client.kick(user)
             embed = discord.Embed(color=0x4e09ff)
-            embed.add_field(name=":white_check_mark: Sucessful!", value="Member was kicked.. **Read** Following Information", inline=False)
+            embed.set_author(name='Kicked {}'.format(user.name), inline=True)
             embed.add_field(name="User:", value=f"{user.mention}")
             embed.add_field(name="User ID:", value=f"**{user.id}**")
+            embed.add_field(name='Reason:', value='{0}'.format(reason), inline=True)
             embed.set_footer(icon_url=user.avatar_url, text=f"Kicked by: {author.name}")
             await client.say(embed=embed)
+            
         else:
             embed = discord.Embed(color=0xff0200)
-            embed.set_author(icon_url=author.avatar_url, name="Uh Oh.")
-            embed.add_field(name=":x: Error", value="You are missing some permissions there bud. ```Permissions: Kick Members```", inline=False)
+            embed.set_author(icon_url=author.avatar_url, name="Something went wrong")
+            embed.add_field(name=":x: Error", value="You are missing the following permission: ```Kick Members```", inline=False)
             await client.say(embed=embed)
+            
     except discord.Forbidden:
         embed = discord.Embed(color=0xff0200)
         author = ctx.message.author
-        embed.set_author(icon_url=author.avatar_url, name="Uh Oh.")
-        embed.add_field(name=":x: Error", value="There are two things that could be wrong. ```1. I don't have permissions to kick members``` \n ```2. The user either has a higher role than me or higher permission```", inline=False)
+        embed.set_author(icon_url=author.avatar_url, name="Something went wrong ;-;")
+        embed.add_field(name=":x: Error", value="I'm missing thr following permission: ```Kick Members```", inline=False)
+        embed.set_footer(icon_url=user.avatar_url, text=f"Make sure my role is higher than {author.name}, that can be another error ;-;")
         await client.say(embed=embed)
+        
     except discord.HTTPException:
         embed = discord.Embed(color=0xff0200)
-        embed.add_field(name=":x: Error", value="Sorry, there was an unknown error... We will fix as soon as possible!")
+        embed.add_field(name=":x: Error", value="Sorry, I can't kick other bots at the moment ;-;")
         await client.say(embed=embed)
         
 @client.command(pass_context=True)
