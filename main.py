@@ -169,7 +169,7 @@ async def avatar(ctx, user: discord.Member = None):
 async def userinfo(ctx, user: discord.Member = None):
     if user == None:
         author = ctx.message.author
-        embed = discord.Embed(title="{}'s info".format(ctx.message.author.name), description="{}".format(ctx.message.author.mention), color=0xFF0000)
+        embed = discord.Embed(title="{}'s info".format(ctx.message.author.name), description="{}".format(ctx.message.author.mention), color=0x00ff00)
         embed.add_field(name="Name:", value=ctx.message.author.name, inline=True)
         embed.add_field(name="Nickname:", value=ctx.message.author.display_name, inline=True)
         embed.add_field(name="ID:", value=ctx.message.author.id, inline=True)
