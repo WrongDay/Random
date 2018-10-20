@@ -653,14 +653,14 @@ async def kick(ctx, user: discord.Member = None, *, reason = None):
             if ctx.message.author.bot:
                 embed = discord.Embed(color=0xff0200)
                 embed.add_field(name=":x: Error:", value="This command is blocked for bots.")
-                embed.set_footer(icon_url=author.avatar_url, text="| Moderation commands!")
+                embed.set_footer(icon_url=author.avatar_url, text="Error created by: {}".format(author.name))
                 await client.say(embed=embed)
                 return
             
             if author == user:
                 embed = discord.Embed(color=0xff0200)
-                embed.add_field(name=":x: Error: ", value="```You can't kick yourself```", inline=False)
-                embed.set_footer(icon_url=author.avatar_url, text="Error created by: {}".format(author.name))
+                embed.add_field(name=":x: Error: ", value="`You can't kick yourself`", inline=False)
+                embed.set_footer(icon_url=author.avatar_url, text="| Moderation commands!")
                 await client.say(embed=embed)
                 return
             
