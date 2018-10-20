@@ -739,6 +739,9 @@ async def debug(self, ctx, *, code : str):
     if asyncio.iscoroutine(result):
         result = await result
 
+    else:
+        await client.say("Good job! No errors :D")
+        
     await client.say(python.format(result))
         
 starttime = datetime.utcnow()
