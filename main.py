@@ -196,7 +196,7 @@ async def suggest(ctx, * ,suggeston):
                        value="{}".format(suggestion), inline=False)
     embed.set_footer(text="Thanks for suggesting!")
     await client.delete_message(ctx.message)
-    await client.say(embed=embed)
+    await client.say(embed=embed) 
 
 @client.command(pass_context=True)
 async def stats(ctx):
