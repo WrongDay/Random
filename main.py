@@ -473,6 +473,28 @@ async def bal(ctx):
             
 #Moderation commands
 @client.command(pass_context=True)
+async def nick(ctx, member: discord.User=None, *, newnick=None):
+    author = ctx.message.author
+    if ctx.message.author.server_permissions.manage_nicknames:
+        if member is None:
+            embed = discord.Embed(color=0xff0200)
+            embed.add_field(name=':x: Error:', value='```Please specify a user!```', inline=False)
+            embed.set_footer(icon_url=author.avatar_url, text="| Utility commands!")
+            await client.say(embed=embed)
+            
+        else:
+            await client.change_nickname(member, newnick)
+            embed = discord.Embed(color=0xff00f0)
+            embed.add_field(name='Changed:', value=f"You have changed {member.name}'s to `{newnick}`", inline=True)
+            embed.set_footer(icon_url=author.avatar_url, text="| Utility commands!")
+            await client.say(embed=embed)
+    else:
+        embed = discord.Embed(color=0xff0200)
+        embed.add_field(name=':x: Error', value='You are missing the following permission: ``Manage Nicknames``', inline=False)
+        embed.set_footer(icon_url=author.avatar_url, text='You cant use this command!')
+        await client.say(embed=embed)
+
+@client.command(pass_context=True)
 @commands.has_permissions(manage_messages=True)
 async def clear (ctx, amount=100):
   if ctx.message.author.server_permissions.manage_messages:
@@ -666,7 +688,7 @@ async def kick(ctx, user: discord.Member = None, *, reason = None):
             
             if user is None:
                 embed = discord.Embed(color=0xff0200)
-                embed.set_author(icon_url=author.avatar_url, name="Error:")
+                embed.set_author(name="Something went wrong ;-;")
                 embed.add_field(name=":x: Error:", value="```Failed to specify a user```", inline=False)
                 embed.set_footer(icon_url=author.avatar_url, text="| Moderation commands!")
                 await client.say(embed=embed)
