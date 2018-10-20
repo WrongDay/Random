@@ -6,7 +6,6 @@ import time
 import os
 import asyncio
 import random
-import praw
 import datetime
 import aiohttp
 from datetime import datetime
@@ -189,14 +188,6 @@ async def serverinfo(ctx):
     embed.set_thumbnail(url=ctx.message.server.icon_url)
     await client.say(embed=embed)
     return 
-
-@client.command(pass_context = True)
-async def suggest(ctx, * ,suggeston):
-    embed = discord.Embed(title="Suggestion from: ", description="{0}".format(ctx.message.author), color=0x00ff00)
-                       value="{}".format(suggestion), inline=False)
-    embed.set_footer(text="Thanks for suggesting!")
-    await client.delete_message(ctx.message)
-    await client.say(embed=embed) 
 
 @client.command(pass_context=True)
 async def stats(ctx):
