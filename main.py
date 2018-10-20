@@ -473,7 +473,7 @@ async def bal(ctx):
             
 #Moderation commands
 @client.command(pass_context=True)
-async def nick(ctx, member: discord.User=None, *, newnick=None):
+async def nickname(ctx, member: discord.User=None, *, newnick=None):
     author = ctx.message.author
     if ctx.message.author.server_permissions.manage_nicknames:
         if member is None:
