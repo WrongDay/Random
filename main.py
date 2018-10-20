@@ -166,16 +166,33 @@ async def avatar(ctx, user: discord.Member = None):
 
             
 @client.command(pass_context=True)
-async def userinfo(ctx, user: discord.Member):
-    embed = discord.Embed(title="{}'s info".format(user.name), description="Here's the info.", color=0x00ff00)
-    embed.add_field(name="Name", value=user.name, inline=True)
-    embed.add_field(name="ID", value=user.id, inline=True)
-    embed.add_field(name="Status", value=user.status, inline=True)
-    embed.add_field(name="Highest role", value=user.top_role)
-    embed.add_field(name="Joined", value=user.joined_at)
-    embed.set_thumbnail(url=user.avatar_url)
-    await client.say(embed=embed)
-    return
+async def userinfo(ctx, user: discord.Member = None):
+    if user == None:
+        author = ctx.message.author
+        embed = discord.Embed(title="{}'s info".format(ctx.message.author.name), description="{}".format(ctx.message.author.mention), color=0xFF0000)
+        embed.add_field(name="Name:", value=ctx.message.author.name, inline=True)
+        embed.add_field(name="Nickname:", value=ctx.message.author.display_name, inline=True)
+        embed.add_field(name="ID:", value=ctx.message.author.id, inline=True)
+        embed.add_field(name="Status:", value=ctx.message.author.status, inline=True)
+        embed.add_field(name="Highest Role:", value=ctx.message.author.top_role)
+        embed.add_field(name="Account Created: ", value=ctx.message.author.created_at, inline=True)
+        embed.add_field(name="Joined at:", value=ctx.message.author.joined_at)
+        embed.set_thumbnail(url=ctx.message.author.avatar_url)
+        embed.set_footer(icon_url=author.avatar_url, text="Helpful commands!"))
+        await bot.say(embed=embed)
+        
+    else:
+        embed = discord.Embed(title="{}'s info".format(user.name), description="Here's the info.", color=0x00ff00)
+        embed.add_field(name="Name", value=user.name, inline=True)
+        embed.add_field(name="Nickname:", value=ctx.user.display_name, inline=True)
+        embed.add_field(name="ID", value=user.id, inline=True)
+        embed.add_field(name="Status", value=user.status, inline=True)
+        embed.add_field(name="Highest role", value=user.top_role)
+        embed.add_field(name="Account Created: ", value=user.created_at, inline=True)
+        embed.add_field(name="Joined at:", value=user.joined_at)
+        embed.set_thumbnail(url=user.avatar_url)
+        embed.set_footer(icon_url=author.avatar_url, text="Helpful commands!")
+        await client.say(embed=embed)
 
 @client.command(pass_context=True)
 async def serverinfo(ctx):
