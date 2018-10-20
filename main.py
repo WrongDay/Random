@@ -672,7 +672,7 @@ async def kick(ctx, user: discord.Member = None, *, reason=None):
     await client.kick(user)
     embed = discord.Embed(color=0x00ff00)
     embed.set_author(name='Kicked {}'.format(user.name)
-    embed.add_field(name="User ID:", value=f"{user.id}"), inline=True)
+    embed.add_field(name="User ID:", value=f"{user.id}")
     embed.add_field(name='Server:', value='{}'.format(server.name), inline=False)
     embed.add_field(name='Reason:', value='{0}'.format(reason), inline=True)
     embed.add_field(name='Kicked by:', value='**{}**'.format(author.name), inline=False)
