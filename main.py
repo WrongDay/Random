@@ -298,7 +298,127 @@ async def resume(ctx):
     id = ctx.message.server.id
     players[id].resume()
     await client.say("Resumed")
-        
+
+ #Giveaway
+@client.command(pass_context = True)
+async def giveaway(ctx):
+    if ctx.message.author.server_permissions.manage_server:
+        if ctx.message.author.bot:
+            await client.say("Bots can't use commands.")
+            return
+        """Create a giveaway throught an interactive setup!"""
+        await client.say(":tada: WooHoo!!!! We will create your giveaway :tada:")
+        await asyncio.sleep(1)
+        await ctx.bot.say("What channel will the giveaway be held in?\n"
+                        "\n"
+                        "`Ex. Choose a channel name in your server. ('general' not #general)`")
+        channel_name = await client.wait_for_message(author = ctx.message.author)
+        g_channel = discord.utils.get(ctx.message.server.channels, name = channel_name.content)
+        if not g_channel:
+            await client.say(":x: | Channel Not Found! | Starting Over!")
+        if g_channel:
+            await client.say(":white_check_mark: | Channel selected!")
+            await asyncio.sleep(1)
+            await client.say("How long will the giveaway Be?\n"
+                            "\n"
+                            "Ex. 5 Minutes, say 5m, 1 Hour, say 1h, etc. (Whole numbers only")
+            duration = await client.wait_for_message(author = ctx.message.author)
+            await asyncio.sleep(1)
+            await client.say(":tada: Giveaway is set to end in {}".format(duration.content))
+            await asyncio.sleep(1)
+            await client.say("How many winner will be selected?\n"
+                              "\n"
+                              "`Pick 1 (More winners Coming Soon!)`")
+            msg = await client.wait_for_message(author = ctx.message.author)
+            g_winners = int(msg.content)
+            await asyncio.sleep(1)
+            await client.say(":tada: {} winner(s) will be chosen".format(g_winners))
+            await asyncio.sleep(1)
+            await client.say("What are you giving away?\n"
+                            "\n"
+                            "`Ex. Free Steam Keys`")
+            g_prize = await ctx.bot.wait_for_message(author = ctx.message.author)
+            await asyncio.sleep(1)
+            await client.say("Giving away {}".format(g_prize.content))
+            await asyncio.sleep(1)
+            await client.say(":tada: Almost done. Please confirm the things below.")
+            await asyncio.sleep(1)
+            await client.say("You are giving away `{}` with `{}` winner(s), that will last `{}`?\n"
+                            "\n"
+                            "`If this is Correct repond with 'Yes'. If not respond with 'No' and the giveaway will be canceled`".format(g_prize.content, g_winners, duration.content))
+            response = await client.wait_for_message(author = ctx.message.author, channel = ctx.message.channel)
+            response = response.content.lower()
+
+            duration = duration.content
+
+            unit = duration[-1]
+            if unit == 's':
+                time = int(duration[:-1])
+                longunit = 'seconds'
+            elif unit == 'm':
+                time = int(duration[:-1]) * 60
+                longunit = 'minutes'
+            elif unit == 'h':
+                time = int(duration[:-1]) * 60 * 60
+                longunit = 'hours'
+            else:
+                return
+
+            yesres = 'yes'
+            nores = 'no'
+            if response.lower() == nores.lower():
+                await asyncio.sleep(1)
+                await client.say(":x: | Giveaway canceled ;-;")
+            if response.lower() == yesres.lower():
+                await client.say(":tada: Giveaway started! :tada:")
+
+                color = ''.join([random.choice('0123456789ABCDEF') for x in range(6)])
+                color = int(color, 16)
+                embed=discord.Embed(title=":tada: __**Giveaway: {}**__ :tada:".format(g_prize.content), colour = discord.Colour(value=color), timestamp = datetime.datetime.utcnow())
+                embed.add_field(name = "Prize: ",value = "{}".format(g_prize.content))
+                embed.add_field(name = "Winner(s): ", value = "{} Winner(s)".format(g_winners))
+                embed.add_field(name = "Time: ", value = "{}".format(duration), inline = True)
+                embed.set_footer(text = "Click on the reaction to join! ")
+                give_away = await client.send_message(g_channel, embed = embed)
+                ga_message = await client.add_reaction(give_away, "\U0001f389")
+                await asyncio.sleep(time)#Sleep for the duration
+
+                ga_message = await client.get_message(give_away.channel, give_away.id)
+                ga_users=[]
+                for user in await client.get_reaction_users(ga_message.reactions[0]):
+                    ga_users.append(user.mention)
+                ga_client = ctx.message.server.get_member('492031267483811850') #Put your bot id here for this to pull it.
+                ga_users.remove(ga_client.mention)
+                if len(ga_users) == 0:
+                    error = discord.Embed(title=":warning: Error!",description="The giveaway ended with no participants, could not determine a winner",color=0xff0000)
+                    await client.say(embed=error)
+                else:
+                    winner_list=[]
+                    for loop in range(g_winners):
+                        winner = random.choice(ga_users)
+                        ga_users.remove(winner)
+                        winner_list.append(winner)
+                        msg = ""
+            
+                color = ''.join([random.choice('0123456789ABCDEF') for x in range(6)])#Winning Embed
+                color = int(color, 16)
+                embed=discord.Embed(title=":tada: __**Giveaway ended!**__ :tada:", colour = discord.Colour(value=color), timestamp = datetime.datetime.utcnow())
+                embed.add_field(name = "Winner(s): ", value = "{} Winner(s)".format(g_winners))
+                embed.add_field(name = "Winner List: ", value = ",\n".join(winner_list))
+                embed.add_field(name = "Prize: ", value = "{}".format(g_prize.content))
+                embed.set_footer(text = "Better Luck Next Time! Ended")
+                await client.edit_message(give_away, embed = embed)
+                for winner in winner_list:
+                    msg += ", " + winner
+                await client.send_message(g_channel, ":tada: " + ", ".join(winner_list) + " won **{}**".format(g_prize.content))
+
+   else:
+        embed = discord.Embed(color=0xff0200)
+        author = ctx.message.author
+        embed.set_author(icon_url=author.avatar_url, name="Something went wrong ;-;")
+        embed.add_field(name=":x: Error", value="You are missing the following permission: ```Manage Server```", inline=False)
+        await client.say(embed=embed)
+                
 #Economy
 @client.command(pass_context=True)
 @commands.cooldown(1, 120, commands.BucketType.user)
