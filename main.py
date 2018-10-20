@@ -8,6 +8,7 @@ import asyncio
 import random
 import praw
 import datetime
+import aiohttp
 from datetime import datetime
 from itertools import cycle
 
