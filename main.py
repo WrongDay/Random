@@ -692,7 +692,7 @@ async def kick(ctx, user: discord.Member = None, *, reason = None):
         author = ctx.message.author
         embed.set_author(icon_url=author.avatar_url, name="Something went wrong ;-;")
         embed.add_field(name=":x: Error", value="I'm missing thr following permission: ```Kick Members```", inline=False)
-        embed.set_footer(icon_url=user.avatar_url, text=f"Make sure my role is higher than {author.name}, that can be another error ;-;")
+        embed.set_footer(icon_url=author.avatar_url, text=f"Make sure my role is higher than {author.name}, that can be another error ;-;")
         await client.say(embed=embed)
         
     except discord.HTTPException:
