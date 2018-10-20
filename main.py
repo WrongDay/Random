@@ -197,6 +197,7 @@ async def suggest(ctx, *, suggestion):
     embed.add_field(name=":inbox_tray:",
                        value="{}".format(suggestion), inline=False)
     embed.set_footer(text="Thanks for suggesting!")
+    await client.say(embed=embed)
 
 @client.command(pass_context=True)
 async def stats(ctx):
