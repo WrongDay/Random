@@ -154,11 +154,11 @@ async def meme(ctx):
     async with aiohttp.ClientSession() as cs:
         async with cs.get("https://api.reddit.com/r/me_irl/random") as r:
             data = await r.json()
-            embed = discord.Embed(title="__WrongBot__",
-                                  description="Meme:",
+            embed = discord.Embed(title="__Meme:__",
+                                  description=";))))",
                                   color=0x00ff00)
             embed.set_image(url = data[0]["data"]["children"][0]["data"]["url"])
-            embed.set_footer(text = "Still in development")
+            embed.set_footer(icon_url=author.avatar_url, text="| Fun Commands!")
 
             await client.say(embed=embed)
 
