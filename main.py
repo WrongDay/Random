@@ -190,13 +190,12 @@ async def serverinfo(ctx):
     await client.say(embed=embed)
     return 
 
-@client.command(pass_context=True)
-async def suggest(ctx, *, suggestion):
-    author = ctx.message.author
-    embed = discord.Embed(title="Suggestion:", description="{0} , {1} , {2}".format(ctx.message.author,ctx.message.author.mention, ctx.message.author.id), color=0x00ff00)
-    embed.add_field(name=":inbox_tray:",
+@client.command(pass_context = True)
+async def suggest(ctx, * ,suggeston):
+    embed = discord.Embed(title="Suggestion from: ", description="{0}".format(ctx.message.author), color=0x00ff00)
                        value="{}".format(suggestion), inline=False)
     embed.set_footer(text="Thanks for suggesting!")
+    await client.delete_message(ctx.message)
     await client.say(embed=embed)
 
 @client.command(pass_context=True)
