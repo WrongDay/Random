@@ -149,7 +149,22 @@ async def meme(ctx):
 
             await client.say(embed=embed)
 
+@client.command(pass_context = True)
+async def avatar(ctx, user: discord.Member = None):
+    await client.send_typing(ctx.message.channel)
+    if user is None:
+        embed = discord.Embed(title="{}'s Avatar:".format(ctx.message.author.name), color=0x00ff00)
+        embed.set_image(url=ctx.message.author.avatar_url)
+        embed.add_field(name="Link: ", value=ctx.message.author.avatar_url, inline=True)
+        await client.say(embed=embed)
 
+    else:
+        embed = discord.Embed(title="{}'s Avatar:".format(user.name), color=0x00ff00)
+        embed.set_image(url=user.avatar_url)
+        embed.add_field(name="Link: ", value=user.avatar_url, inline=True)
+        await client.say(embed=embed)
+
+            
 @client.command(pass_context=True)
 async def userinfo(ctx, user: discord.Member):
     embed = discord.Embed(title="{}'s info".format(user.name), description="Here's the info.", color=0x00ff00)
@@ -193,7 +208,7 @@ async def ping(ctx):
     t1 = time.perf_counter()
     await client.send_typing(channel)
     t2 = time.perf_counter()
-    embed=discord.Embed(title="My ping:", description='**Latency: {}ms**'.format(round((t2-t1)*1000)), color=0x00ff00)
+    embed=discord.Embed(title="My ping:", description='*Latency: {}ms*'.format(round((t2-t1)*1000)), color=0x00ff00)
     await client.say(embed=embed)
 
 @client.command(pass_context=True)
@@ -207,7 +222,7 @@ async def credits(ctx):
     
 @client.command(pass_context=True)
 async def invite(ctx):
-    embed = discord.Embed(color=0x1434a3)
+    embed = discord.Embed(color=0x00ff00)
     embed.add_field(name="Invite Link!", value="Click here to invite me! Don't forget to upvote me ;D (https://discordbots.org/bot/492031267483811850)")
     await client.say(embed=embed)    
     
@@ -505,7 +520,7 @@ async def kick(ctx, user: discord.Member = None, *, reason=None):
             return 
         
         else:
-            embed = discord.Embed(color=0xff00e6)
+            embed = discord.Embed(color=0x00ff00)
             embed.set_author(name='Kick Information')
             embed.add_field(name='Server:', value='**{}**'.format(server.name), inline=False)
             embed.add_field(name='Reason:', value='**{0}**'.format(reason), inline=True)
@@ -513,7 +528,7 @@ async def kick(ctx, user: discord.Member = None, *, reason=None):
             await client.send_message(user, embed=embed)
             await client.kick(user)
             #Sends the user a message when he is kicked!
-            embed = discord.Embed(color=0xff00e6)
+            embed = discord.Embed(0x00ff00)
             embed.set_author(name='Kick Information')
             embed.add_field(name='Server:', value='**{}**'.format(server.name), inline=False)
             embed.add_field(name='Reason:', value='**{0}**'.format(reason), inline=True)
@@ -543,7 +558,7 @@ async def ban(ctx, user: discord.Member = None, *, reason=None):
             return 
         
         else:
-            embed = discord.Embed(color=0xff00e6)
+            embed = discord.Embed(color=0x00ff00)
             embed.set_author(name='Ban - Information')
             embed.add_field(name='Server:', value='**{}**'.format(server.name), inline=False)
             embed.add_field(name='Reason:', value='**{0}**'.format(reason), inline=True)
@@ -551,7 +566,7 @@ async def ban(ctx, user: discord.Member = None, *, reason=None):
             await client.send_message(user, embed=embed)
             await client.ban(user)
             #Sends the user a message when he is kicked!
-            embed = discord.Embed(color=0xff00e6)
+            embed = discord.Embed(color=0x00ff00)
             embed.set_author(name='Ban - Information')
             embed.add_field(name='Server:', value='**{}**'.format(server.name), inline=False)
             embed.add_field(name='Reason:', value='**{0}**'.format(reason), inline=True)
