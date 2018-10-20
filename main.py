@@ -731,8 +731,7 @@ async def debug(self, ctx, *, code : str):
 
     try:
         result = eval(code)
-        if inspect.isawaitable(result):
-            result = await result
+ 
     except Exception as e:
         await client.say(python.format(type(e).__name__ + ': ' + str(e)))
         return
