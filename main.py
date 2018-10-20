@@ -485,7 +485,7 @@ async def nickname(ctx, member: discord.User=None, *, newnick=None):
         else:
             await client.change_nickname(member, newnick)
             embed = discord.Embed(color=0x00ff00)
-            embed.add_field(name='Changed:', value=f"You have changed {member.name}'s to `{newnick}`", inline=True)
+            embed.add_field(name='Changed:', value=f"You have changed {member.name}'s name to `{newnick}`", inline=True)
             embed.set_footer(icon_url=author.avatar_url, text="| Utility commands!")
             await client.say(embed=embed)
     else:
