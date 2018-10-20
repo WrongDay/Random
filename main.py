@@ -178,7 +178,7 @@ async def userinfo(ctx, user: discord.Member = None):
         embed.add_field(name="Account Created: ", value=ctx.message.author.created_at, inline=True)
         embed.add_field(name="Joined at:", value=ctx.message.author.joined_at)
         embed.set_thumbnail(url=ctx.message.author.avatar_url)
-        embed.set_footer(icon_url=author.avatar_url, text="Helpful commands!"))
+        embed.set_footer(icon_url=author.avatar_url, text="Helpful commands!")
         await bot.say(embed=embed)
         
     else:
