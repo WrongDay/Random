@@ -475,12 +475,13 @@ async def bal(ctx):
 @client.command(pass_context=True)
 async def nickname(ctx, member: discord.User=None, *, newnick=None):
     author = ctx.message.author
-    if ctx.message.author.server_permissions.manage_nicknames:
-        if member is None:
-            embed = discord.Embed(color=0xff0200)
-            embed.add_field(name=':x: Error:', value='```Please specify a user!```', inline=False)
-            embed.set_footer(icon_url=author.avatar_url, text="| Utility commands!")
-            await client.say(embed=embed)
+    try:
+        if ctx.message.author.server_permissions.manage_nicknames:
+            if member is None:
+                embed = discord.Embed(color=0xff0200)
+                embed.add_field(name=':x: Error:', value='```Please specify a user!```', inline=False)
+                embed.set_footer(icon_url=author.avatar_url, text="| Utility commands!")
+                await client.say(embed=embed)
             
         else:
             await client.change_nickname(member, newnick)
@@ -488,12 +489,26 @@ async def nickname(ctx, member: discord.User=None, *, newnick=None):
             embed.add_field(name='Changed:', value=f"You have changed {member.name}'s name to `{newnick}`", inline=True)
             embed.set_footer(icon_url=author.avatar_url, text="| Utility commands!")
             await client.say(embed=embed)
-    else:
+            
+        else:
+            embed = discord.Embed(color=0xff0200)
+            embed.add_field(name=':x: Error', value='You are missing the following permission: ``Manage Nicknames``', inline=False)
+            embed.set_footer(icon_url=author.avatar_url, text='You cant use this command!')
+            await client.say(embed=embed)
+
+    except discord.Forbidden:
         embed = discord.Embed(color=0xff0200)
-        embed.add_field(name=':x: Error', value='You are missing the following permission: ``Manage Nicknames``', inline=False)
-        embed.set_footer(icon_url=author.avatar_url, text='You cant use this command!')
+        author = ctx.message.author
+        embed.set_author(name="Something went wrong ;-;")
+        embed.add_field(name=":x: Error", value="I'm missing the following permission: ```Manage Nicknames```", inline=False)
+        embed.set_footer(icon_url=author.avatar_url, text=f"Make sure my role is higher than {author.name}, that can be another error ;-;")
         await client.say(embed=embed)
 
+    except discord.HTTPException:
+        embed = discord.Embed(color=0xff0200)
+        embed.add_field(name=":x: Error", value="Sorry, I can't nickname other bots at the moment ;-;")
+        await client.say(embed=embed)    
+        
 @client.command(pass_context=True)
 @commands.has_permissions(manage_messages=True)
 async def clear (ctx, amount=100):
