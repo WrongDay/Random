@@ -148,6 +148,20 @@ async def coinflip(ctx):
     await client.say ("The coin landed on " + flip + '!')
     return
 
+@bot.command(pass_context = True)
+async def meme(ctx):
+    async with aiohttp.ClientSession() as cs:
+        async with cs.get("https://api.reddit.com/r/me_irl/random") as r:
+            data = await r.json()
+            embed = discord.Embed(title="__WrongBot__",
+                                  description="Meme:",
+                                  color=0x00ff00)
+            embed.set_image(url = data[0]["data"]["children"][0]["data"]["url"])
+            embed.set_footer(text = "Still in development")
+
+            await bot.say(embed=embed)
+
+
 @client.command(pass_context=True)
 async def userinfo(ctx, user: discord.Member):
     embed = discord.Embed(title="{}'s info".format(user.name), description="Here's the info.", color=0x00ff00)
