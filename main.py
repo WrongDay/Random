@@ -735,6 +735,9 @@ async def debug(self, ctx, *, code : str):
     except Exception as e:
         await client.say(python.format(type(e).__name__ + ': ' + str(e)))
         return
+    
+    if asyncio.iscoroutine(result):
+        result = await result
 
     await client.say(python.format(result))
         
