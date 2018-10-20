@@ -148,7 +148,7 @@ async def coinflip(ctx):
     await client.say ("The coin landed on " + flip + '!')
     return
 
-@bot.command(pass_context = True)
+@client.command(pass_context = True)
 async def meme(ctx):
     async with aiohttp.ClientSession() as cs:
         async with cs.get("https://api.reddit.com/r/me_irl/random") as r:
@@ -159,7 +159,7 @@ async def meme(ctx):
             embed.set_image(url = data[0]["data"]["children"][0]["data"]["url"])
             embed.set_footer(text = "Still in development")
 
-            await bot.say(embed=embed)
+            await client.say(embed=embed)
 
 
 @client.command(pass_context=True)
