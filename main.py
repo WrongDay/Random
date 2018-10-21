@@ -148,6 +148,17 @@ async def meme(ctx):
 
             await client.say(embed=embed)
 
+@client.command(pass_context=True, aliases = ["8ball"])
+async def eightball(ctx, *, question):
+    author = ctx.message.author
+    choice = ['Yes', 'No', 'Better not tell you now']
+    picked = random.choice(choice)
+    embed = discord.Embed(color = 0x00ff00)
+    embed.add_field(name= "**"+question+"**", value = picked, inline = False)
+    embed.set_footer(icon_url=author.avatar_url, text="Fun Commands!")
+    await client.say(embed=embed)
+    return              
+            
 #Helpful commands            
 @client.command(pass_context = True)
 async def avatar(ctx, user: discord.Member = None):
