@@ -241,7 +241,8 @@ async def credits(ctx):
 @client.command(pass_context=True)
 async def invite(ctx):
     embed = discord.Embed(color=0x00ff00)
-    embed.add_field(name="Invite Link!", value="Click here to invite me! Don't forget to upvote me ;D (https://discordbots.org/bot/492031267483811850)")
+    embed.add_field(name="Click here to invite me！", value = "[here](https://discordbots.org/bot/492031267483811850)", inline = False)
+    embed.set_footer(text = "Don't forget to upvote me ;D")
     await client.say(embed=embed)    
     
 @client.command(pass_context=True)
