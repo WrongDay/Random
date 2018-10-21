@@ -484,18 +484,17 @@ async def nickname(ctx, member: discord.User=None, *, newnick=None):
                 await client.say(embed=embed)
             
         else:
-            await client.change_nickname(member, newnick)
-            embed = discord.Embed(color=0x00ff00)
-            embed.add_field(name='Changed:', value=f"You have changed {member.name}'s name to `{newnick}`", inline=True)
-            embed.set_footer(icon_url=author.avatar_url, text="| Utility commands!")
-            await client.say(embed=embed)
-            
-       else:
             embed = discord.Embed(color=0xff0200)
             embed.add_field(name=':x: Error', value='You are missing the following permission: ``Manage Nicknames``', inline=False)
             embed.set_footer(icon_url=author.avatar_url, text='You cant use this command!')
             await client.say(embed=embed)
-
+            
+        await client.change_nickname(member, newnick)
+        embed = discord.Embed(color=0x00ff00)
+        embed.add_field(name='Changed:', value=f"You have changed {member.name}'s name to `{newnick}`", inline=True)
+        embed.set_footer(icon_url=author.avatar_url, text="| Utility commands!")
+        await client.say(embed=embed) 
+            
     except discord.Forbidden:
         embed = discord.Embed(color=0xff0200)
         author = ctx.message.author
