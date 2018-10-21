@@ -490,7 +490,7 @@ async def nickname(ctx, member: discord.User=None, *, newnick=None):
             embed.set_footer(icon_url=author.avatar_url, text="| Utility commands!")
             await client.say(embed=embed)
             
-        else:
+       else:
             embed = discord.Embed(color=0xff0200)
             embed.add_field(name=':x: Error', value='You are missing the following permission: ``Manage Nicknames``', inline=False)
             embed.set_footer(icon_url=author.avatar_url, text='You cant use this command!')
