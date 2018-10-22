@@ -288,8 +288,11 @@ async def join(ctx):
 async def leave(ctx):
     server = ctx.message.server
     voice_client = client.voice_client_in(server)
+    if voice_client is None:
+        await client.say(":exclamation: | **I am not in a voice channel!**")
+        return
     await voice_client.disconnect()
-    await client.say("Left")
+    await client.say(f"**I have left** :music:")
 
 players = {}
 @client.command(pass_context=True)
