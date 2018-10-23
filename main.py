@@ -103,8 +103,8 @@ async def help(ctx):
   )
 
   embed.set_author(name='Commands:')
-  embed.add_field(name='Fun:', value='`w!coinflip`, `w!meme`, `w!8ball`, `w!hug`, w!slap`', inline=False)
-  embed.add_field(name='Utlity:', value='`w!say`, `w!reverse`, `w!search`, `w!urban`, `w!yt`, `w!avatar`, w!userinfo`, w!serverinfo', inline=False)
+  embed.add_field(name='Fun:', value='`w!coinflip`, `w!meme`, `w!8ball`, `w!hug`, `w!slap`', inline=False)
+  embed.add_field(name='Utlity:', value='`w!say`, `w!reverse`, `w!search`, `w!urban`, `w!yt`, `w!avatar`, `w!userinfo`, `w!serverinfo', inline=False)
   embed.add_field(name='Moderation', value='`w!nickname`, `w!mute`, `w!unmute`, `w!addrole`, `w!removerole`, `w!clear`, `w!kick`, `w!ban`', inline=False)
   embed.add_field(name='Others:', value='`w!stats`, `w!ping`, `w!inivte`, `w!timer`', inline=False)
   await client.send_message(author, embed=embed)
