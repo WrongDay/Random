@@ -8,6 +8,7 @@ import asyncio
 import random
 import datetime
 import aiohttp
+import requests
 from datetime import datetime
 from itertools import cycle
 
@@ -158,7 +159,40 @@ async def eightball(ctx, *, question):
     embed.set_footer(icon_url=author.avatar_url, text="Fun Commands!")
     await client.say(embed=embed)
     return              
-            
+ 
+@client.command(pass_context=True)
+async def hug(ctx, user: discord.Member = None):
+    if ctx.message.author.bot:
+        await client.say("Bots can't use commands.")
+        return
+    if user is None:
+        await client.say("Specify a user please.")
+        return
+    response = requests.get("https://nekos.life/api/v2/img/hug")
+    data = response.json()
+    data = response.json()
+    embed = discord.Embed(title=f"Hugged {user.name}", color=0x08202D)
+    embed.set_image(url=f"{data['url']}")
+    embed.set_footer(text=f"Requested By: {ctx.message.author}")
+    await client.say(embed=embed)
+    
+@client.command(pass_context=True)
+async def slap(ctx, user: discord.Member = None):
+    if ctx.message.author.bot:
+        await client.say("Bots can't use commands.")
+        return
+    if user is None:
+        await client.say("Specify a user please.")
+        return
+    response = requests.get("https://nekos.life/api/v2/img/slap")
+    data = response.json()
+    data = response.json()
+    embed = discord.Embed(title=f"Slapped the fuck out of {user.name}", color=0x08202D)
+    embed.set_image(url=f"{data['url']}")
+    embed.set_footer(text=f"Requested By: {ctx.message.author}")
+    await client.say(embed=embed)
+
+
 #Helpful commands            
 @client.command(pass_context = True)
 async def avatar(ctx, user: discord.Member = None):
