@@ -163,6 +163,18 @@ async def gaymeter(ctx, user: discord.Member = None):
         await client.say(embed = embed)
     
 @client.command(pass_context=True)
+async def rate(ctx, user: discord.Member = None):
+    if user is None:
+        embed = discord.Embed(color=0x00ff00)
+        embed.add_field(name=':x: Error:', value='Please specify a user', inline=False)
+        await client.say(embed=embed)   
+    else:
+        rateme = random.randint(1,100)
+        embed = discord.Embed(color = 0x00ff00)
+        embed.add_field(name = str(user) +  "ratings:", value = str(rateme) + "😎", inline = True)
+        await client.say(embed = embed)  
+    
+@client.command(pass_context=True)
 async def hug(ctx, user: discord.Member = None):
     if ctx.message.author.bot:
         await client.say("Bots can't use commands.")
