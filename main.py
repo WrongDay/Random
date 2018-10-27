@@ -171,7 +171,7 @@ async def rate(ctx, user: discord.Member = None):
     else:
         rateme = random.randint(1,100)
         embed = discord.Embed(color = 0x00ff00)
-        embed.add_field(name = str(user) +  "ratings:", value = str(rateme) + "😎", inline = True)
+        embed.add_field(name = str(user) +  "'s ratings:", value = str(rateme) + " 😎", inline = True)
         await client.say(embed = embed)  
     
 @client.command(pass_context=True)
