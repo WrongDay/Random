@@ -160,6 +160,7 @@ async def gaymeter(ctx, user: discord.Member = None):
         gayness = random.randint(1,100)
         embed = discord.Embed(color = 0x00ff00)
         embed.add_field(name = "Gay meter detected that", value = str(gayness) + '% gay', inline = True)
+        await client.say(embed = embed)
     
 @client.command(pass_context=True)
 async def hug(ctx, user: discord.Member = None):
