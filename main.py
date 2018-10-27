@@ -151,6 +151,17 @@ async def eightball(ctx, *, question):
     return              
  
 @client.command(pass_context=True)
+async def gaymeter(ctx, user: discord.Member = None):
+    if user is None:
+        embed = discord.Embed(color=0x00ff00)
+        embed.add_field(name=':x:', value='Go specify a user unless you are gay ;)))', inline=False)
+        await client.say(embed=embed)   
+    else:
+        gayness = random.randint(1,100)
+        embed = discord.Embed(color = 0x00ff00)
+        embed.add_field(name = "Gay meter detected that", value = gayness + '% gay', inline = True)
+    
+@client.command(pass_context=True)
 async def hug(ctx, user: discord.Member = None):
     if ctx.message.author.bot:
         await client.say("Bots can't use commands.")
