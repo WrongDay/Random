@@ -159,7 +159,7 @@ async def gaymeter(ctx, user: discord.Member = None):
     else:
         gayness = random.randint(1,100)
         embed = discord.Embed(color = 0x00ff00)
-        embed.add_field(name = "Gay meter:", value = user + "is" + str(gayness) + '% gay', inline = True)
+        embed.add_field(name = "Gay meter:", value = str(user) + "is" + str(gayness) + '% gay', inline = True)
         await client.say(embed = embed)
     
 @client.command(pass_context=True)
