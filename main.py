@@ -201,7 +201,7 @@ async def slap(ctx, user: discord.Member = None):
 #Helpful commands            
 @client.command(pass_context = True)
 async def showrole(ctx):
-    for role in ctx.message.server
+    for role in ctx.message.server:
         for roles in ctx.message.author.roles:
             await client.say(roles)
 
