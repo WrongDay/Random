@@ -164,7 +164,23 @@ async def hug(ctx, user: discord.Member = None):
     embed.set_image(url=f"{data['url']}")
     embed.set_footer(text=f"Requested By: {ctx.message.author}")
     await client.say(embed=embed)
-    
+   
+@client.command(pass_context=True)
+async def cuddle(ctx, user: discord.Member = None):
+    if ctx.message.author.bot:
+        await client.say("Bots can't use commands.")
+        return
+    if user is None:
+        await client.say("Specify a user please.")
+        return
+    response = requests.get("https://nekos.life/api/v2/img/cuddle")
+    data = response.json()
+    data = response.json()
+    embed = discord.Embed(title=f"Cuddle {user.name}", color=0x08202D)
+    embed.set_image(url=f"{data['url']}")
+    embed.set_footer(text=f"Requested By: {ctx.message.author}")
+    await client.say(embed=embed)
+
 @client.command(pass_context=True)
 async def slap(ctx, user: discord.Member = None):
     if ctx.message.author.bot:
