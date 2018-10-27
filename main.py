@@ -200,6 +200,12 @@ async def slap(ctx, user: discord.Member = None):
 
 #Helpful commands            
 @client.command(pass_context = True)
+async def showrole(ctx):
+    for role in server.members:
+        for roles in ctx.message.author.roles:
+            await client.say(roles)
+
+@client.command(pass_context = True)
 async def avatar(ctx, user: discord.Member = None):
     await client.send_typing(ctx.message.channel)
     if user is None:
