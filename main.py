@@ -222,7 +222,17 @@ async def slap(ctx, user: discord.Member = None):
     embed.set_footer(text=f"Requested By: {ctx.message.author}")
     await client.say(embed=embed)
 
-
+@client.command(pass_context=True)
+async def lewdneko(ctx):
+    response = requests.get("https://nekos.life/api/v2/img/nsfw_neko_gif")
+    data = response.json()
+    data = response.json()
+    embed = discord.Embed(title = "Here's some lewd neko for you:", color = 0x00ff00)
+    embed.set_image(url = f"{data['url']}")
+    embed.set_footer(text = f"Requested By: {ctx.message.author}")
+    await client.say(embed = embed)
+       
+    
 #Helpful commands            
 @client.command(pass_context = True)
 async def showrole(ctx):
