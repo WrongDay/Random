@@ -37,7 +37,7 @@ async def change_status():
     print()
     await asyncio.sleep(10)
 
-async def is_nsfw(self, channel: discord.Channel):
+async def is_nsfw(ctx, channel: discord.Channel):
     try:
         _gid = channel.server.id
     except AttributeError:
