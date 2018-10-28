@@ -269,7 +269,6 @@ async def userinfo(ctx, user: discord.Member = None):
         embed.add_field(name="Joined at:", value=ctx.message.author.joined_at)
         embed.set_thumbnail(url=ctx.message.author.avatar_url)
         embed.set_footer(icon_url=author.avatar_url, text="Helpful commands!")
-        await client.say(embed=embed)
         
     else:
         author = user
@@ -292,7 +291,17 @@ async def serverinfo(ctx):
     embed.add_field(name="Name", value=ctx.message.server.name, inline=True)
     embed.add_field(name="ID", value=ctx.message.server.id, inline=True)
     embed.add_field(name="Roles", value=len(ctx.message.server.roles), inline=True)
-    embed.add_field(name="Members", value=len(ctx.message.server.members))
+    embed.add_field(name="Members:", value=len(ctx.message.server.members))
+    roles = [x.name for x in server.role_hierarchy]
+    role_length = len(roles)
+
+    if role_length > 50: 
+        roles = roles[:50]
+        roles.append('>>>> Displaying[50/%s] Roles'%len(roles))
+
+    roles = ', '.join(roles);
+
+    embed.add_field(name = 'Roles (%s):'%str(role_length), value = roles);```
     embed.set_thumbnail(url=ctx.message.server.icon_url)
     await client.say(embed=embed)
     return 
