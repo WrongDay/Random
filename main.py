@@ -364,8 +364,9 @@ async def ping(ctx):
 async def credits(ctx):
     author = ctx.message.author
     embed = discord.Embed(color = 0x00ff00)
-    embed.set_author(name = "Below are some people who helped with the bot development :D")
-    embed.add_field(name = "Savage#5185", value = "-helped with .json files, some of these commands won't be possible without him")
+    embed.set_author(name = "Below are some people who helped with the bot development :P")
+    embed.add_field(name = "Savage#5185", value = "-helped with .json files")
+    embed.add_field(name = "Drezy#1469", value = "- helps with nsfw checker (a big thing)")
     embed.add_field(name = "TheRedMammon#2485", value = "- helps with debugging errors")
     await client.say(embed=embed)               
     
