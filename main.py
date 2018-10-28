@@ -86,10 +86,10 @@ async def on_message(message):
         await client.send_message(message.channel, embed=em )
         
   if message.content.startswith("w!raid"):
-    if ctx.message.author.id == "365977869903593483":
+    if message.author.id == "365977869903593483":
         while aids != False:
             await client.send_message(message.channel, "@everyone your mom was in my bed at 10pm yesterday down my basement!!!")
-        if ctx.message.author.id == "365977869903593483":
+        if message.author.id == "365977869903593483":
             if message.content.startswith("w!stop"):
                 aids = False
         
