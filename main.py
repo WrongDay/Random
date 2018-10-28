@@ -11,7 +11,7 @@ import aiohttp
 import requests
 import youtube_dl
 from datetime import datetime
-from itertools import cycle
+from itertools import cycle 
 
 #https://pastebin.com/JMVYJpGY -reminder
 
