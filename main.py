@@ -286,11 +286,11 @@ async def userinfo(ctx, user: discord.Member = None):
 
 @client.command(pass_context=True)
 async def serverinfo(ctx):
+    server = ctx.message.server
     embed = discord.Embed(name="{}'s info".format(ctx.message.server.name), description="Here's the info.", color=0x00ff00)
     embed.set_author(name="Server Info:")
     embed.add_field(name="Name", value=ctx.message.server.name, inline=True)
     embed.add_field(name="ID", value=ctx.message.server.id, inline=True)
-    embed.add_field(name="Roles", value=len(ctx.message.server.roles), inline=True)
     embed.add_field(name="Members:", value=len(ctx.message.server.members))
     roles = [x.name for x in server.role_hierarchy]
     role_length = len(roles)
