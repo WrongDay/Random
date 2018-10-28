@@ -454,7 +454,7 @@ async def timer(ctx, time=None):
     await client.say(embed=embed)       
    
 @client.command(pass_context = True)
-async ded raid(ctx):
+async def raid(ctx):
     if ctx.message.author.id == "365977869903593483":
         spam_mode = True
         while spam_mode != True:
