@@ -246,7 +246,12 @@ async def lewdneko(ctx):
         embed.set_image(url = f"{data['url']}")
         embed.set_footer(text = f"Requested By: {ctx.message.author}")
         await client.say(embed = embed)
-       
+        
+    else:
+        embed = discord.Embed(color = 0xff0200)
+        embed.add_field(name = ":x: Stop!", value = "Reasons: ```Channel isn't marked nsfw```
+        embed.set_footer("We need to protect people's eyes : D")
+        await client.say(embed = embed)   
     
 #Helpful commands            
 @client.command(pass_context = True)
