@@ -57,9 +57,7 @@ async def is_nsfw(channel: discord.Channel):
     
 @client.event
 async def on_server_join(server):
-    await client.send_message(server.owner, """Thanks for inviting me! Make sure I have the following permission to work properly:
-    **Manage message** for say, and clear command
-    **Kick/Ban** to kick and ban users (optional)""")
+    await client.send_message(server.owner, """Thanks for inviting me!""")
 
 @client.event 
 async def on_message(message):
