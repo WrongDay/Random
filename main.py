@@ -43,15 +43,17 @@ async def on_ready():
     print(client.user)
     
     async def is_nsfw(ctx, channel: discord.Channel):
-    try:
-        _gid = channel.server.id
-    except AttributeError:
-        return False
-    data = await client.http.request(
-        discord.http.Route(
-            'GET', '/guilds/{guild_id}/channels', guild_id=_gid))
-    channeldata = [d for d in data if d['id'] == channel.id][0]
-    return channeldata['nsfw']
+        try:
+            _gid = channel.server.id
+    
+        except AttributeError:
+            
+            return False
+        data = await client.http.request(
+            discord.http.Route(
+                'GET', '/guilds/{guild_id}/channels', guild_id=_gid))
+        channeldata = [d for d in data if d['id'] == channel.id][0]
+        return channeldata['nsfw']
 
 @client.event
 async def on_server_join(server):
