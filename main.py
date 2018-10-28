@@ -85,7 +85,7 @@ async def on_message(message):
         await client.send_message(message.channel, embed=em )
   if message.content.startswith("w!raid"):
        while True:
-            await client.send_message(message.channel, "@everyone")```       
+            await client.send_message(message.channel, "@everyone")
         
   await client.process_commands(message)
     
