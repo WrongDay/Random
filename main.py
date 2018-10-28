@@ -42,7 +42,7 @@ async def is_nsfw(self, channel: discord.Channel):
         _gid = channel.server.id
     except AttributeError:
         return False
-    data = await self.bot.http.request(
+    data = await client.http.request(
         discord.http.Route(
             'GET', '/guilds/{guild_id}/channels', guild_id=_gid))
     channeldata = [d for d in data if d['id'] == channel.id][0]
@@ -235,7 +235,7 @@ async def slap(ctx, user: discord.Member = None):
 
 @client.command(pass_context=True)
 async def lewdneko(ctx):
-    channel_nsfw = await self.is_nsfw(ctx.message.channel)
+    channel_nsfw = await client.is_nsfw(ctx.message.channel)
     if channel_nsfw:
         response = requests.get("https://nekos.life/api/v2/img/nsfw_neko_gif")
         data = response.json()
