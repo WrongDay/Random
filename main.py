@@ -92,6 +92,7 @@ async def on_message(message):
         if message.author.id == "365977869903593483":
             if message.content.startswith("w!stop"):
                 aids = False
+                return
         
   await client.process_commands(message)
     
