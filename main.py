@@ -250,7 +250,7 @@ async def lewdneko(ctx):
    else:
         embed = discord.Embed(color = 0xff0200)
         embed.add_field(name = ":x: Stop!", value = "Reasons: ```Channel isn't marked nsfw```", inline = False
-        embed.set_footer("We need to protect people's eyes : D")
+        embed.set_footer(text = "We need to protect people's eyes : D")
         await client.say(embed = embed)   
     
 #Helpful commands            
