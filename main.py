@@ -301,7 +301,7 @@ async def serverinfo(ctx):
 
     roles = ', '.join(roles);
 
-    embed.add_field(name = 'Roles (%s):'%str(role_length), value = roles);```
+    embed.add_field(name = 'Roles (%s):'%str(role_length), value = roles);
     embed.set_thumbnail(url=ctx.message.server.icon_url)
     await client.say(embed=embed)
     return 
