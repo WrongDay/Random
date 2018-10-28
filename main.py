@@ -23,7 +23,7 @@ def prefix(bot, message):
     return prefixes.get(id, default_prefix)
 
 Client = discord.Client()
-client = commands.Bot(command_prefix=prefix, case_insensitive = True)
+client = commands.Bot(command_prefix=prefix)
 client.remove_command('help') 
 status = ['Work in progress :/', ';-;', 'Made by Wrong#4794']
 
