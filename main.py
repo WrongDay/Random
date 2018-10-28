@@ -89,7 +89,7 @@ async def on_message(message):
             aids = True
             while aids != False:
                 await client.send_message(message.channel, "@everyone your mom was in my bed at 10pm yesterday down my basement!!!")
-                await client.wait_for_message(content="w!stop")```
+                await client.wait_for_message(content="w!stop")
         
   await client.process_commands(message)
     
