@@ -270,6 +270,42 @@ async def hentai(ctx):
         embed.set_footer(text='''We need to protect people's eyes :D''')
         await client.say(embed = embed)   
 
+client.command(pass_context=True)
+async def boobs(ctx):
+   channel_nsfw = await client.is_nsfw(ctx.message.channel)
+   if channel_nsfw:
+        response = requests.get("https://nekos.life/api/v2/img/boobs")
+        data = response.json()
+        data = response.json()
+        embed = discord.Embed(title = "Try not to masturbate to it?", color = 0x00ff00)
+        embed.set_image(url = f"{data['url']}")
+        embed.set_footer(text = f"Requested By: {ctx.message.author}")
+        await client.say(embed = embed)
+        
+   else:
+        embed = discord.Embed(color = 0xff0200)
+        embed.add_field(name = ":x: Stop!", value = "Reason: ```This channel isn't marked nsfw```", inline = False)
+        embed.set_footer(text='''We need to protect people's eyes :D''')
+        await client.say(embed = embed)       
+      
+client.command(pass_context=True)
+async def lewd(ctx):
+   channel_nsfw = await client.is_nsfw(ctx.message.channel)
+   if channel_nsfw:
+        response = requests.get("https://nekos.life/api/v2/img/lewd")
+        data = response.json()
+        data = response.json()
+        embed = discord.Embed(title = "Try not to masturbate to it?", color = 0x00ff00)
+        embed.set_image(url = f"{data['url']}")
+        embed.set_footer(text = f"Requested By: {ctx.message.author}")
+        await client.say(embed = embed)
+        
+   else:
+        embed = discord.Embed(color = 0xff0200)
+        embed.add_field(name = ":x: Stop!", value = "Reason: ```This channel isn't marked nsfw```", inline = False)
+        embed.set_footer(text='''We need to protect people's eyes :D''')
+        await client.say(embed = embed)  
+    
 #Helpful commands            
 @client.command(pass_context = True)
 async def avatar(ctx, user: discord.Member = None):
