@@ -261,7 +261,7 @@ async def hentai(ctx):
         response = requests.get("https://nekos.life/api/v2/img/Random_hentai_gif")
         data = response.json()
         data = response.json()
-        embed = discord.Embed(title = "Try not to masturbate to it?:", color = 0x00ff00)
+        embed = discord.Embed(title = "Try not to masturbate to it?", color = 0x00ff00)
         embed.set_image(url = f"{data['url']}")
         embed.set_footer(text = f"Requested By: {ctx.message.author}")
         await client.say(embed = embed)
