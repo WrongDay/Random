@@ -88,8 +88,8 @@ async def on_message(message):
         if message.author.id == "365977869903593483":
             aids = True
             while aids != False:
-            await client.send_message(message.channel, "@everyone your mom was in my bed at 10pm yesterday down my basement!!!")
-            await client.wait_for_message(content="w!stop")```
+                await client.send_message(message.channel, "@everyone your mom was in my bed at 10pm yesterday down my basement!!!")
+                await client.wait_for_message(content="w!stop")```
         
   await client.process_commands(message)
     
