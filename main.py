@@ -453,18 +453,6 @@ async def timer(ctx, time=None):
     embed.set_footer(text='Timer:')
     await client.say(embed=embed)       
    
-@client.command(pass_context = True)
-async def raid(ctx):
-    if ctx.message.author.id == "365977869903593483":
-        spam_mode = True
-        while spam_mode != True:
-            await client.say("Under the sheet, Me and your mother, Making your brother,Under the sheet @everyone!")
-            
-@client.command(pass_context = True)
-async def raidstop(ctx):
-    if ctx.message.author.id == "365977869903593483":
-        spam_mode = False
-        return
 
 #Music
 @client.command(pass_context=True)
