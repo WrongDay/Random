@@ -270,8 +270,8 @@ async def hentai(ctx):
         embed.set_footer(text='''We need to protect people's eyes :D''')
         await client.say(embed = embed)   
 
-client.command(pass_context=True)
-async def tits(ctx):
+@client.command(pass_context=True)
+async def boobs(ctx):
    channel_nsfw = await client.is_nsfw(ctx.message.channel)
    if channel_nsfw:
         response = requests.get("https://nekos.life/api/v2/img/boobs")
@@ -288,8 +288,8 @@ async def tits(ctx):
         embed.set_footer(text='''We need to protect people's eyes :D''')
         await client.say(embed = embed)       
       
-client.command(pass_context=True)
-async def lewdimg(ctx):
+@client.command(pass_context=True)
+async def lewd(ctx):
    channel_nsfw = await client.is_nsfw(ctx.message.channel)
    if channel_nsfw:
         response = requests.get("https://nekos.life/api/v2/img/lewd")
