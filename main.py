@@ -43,7 +43,7 @@ async def on_ready():
     print(client.user)
 
 @client.event
-async def is_nsfw(ctx, channel: discord.Channel):
+async def is_nsfw(channel: discord.Channel):
     try:
         _gid = channel.server.id
     except AttributeError:
