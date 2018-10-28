@@ -37,7 +37,12 @@ async def change_status():
     print()
     await asyncio.sleep(10)
 
-async def is_nsfw(ctx, channel: discord.Channel):
+@client.event
+async def on_ready():
+    print("WrongBot is at your service!")
+    print(client.user)
+    
+    async def is_nsfw(ctx, channel: discord.Channel):
     try:
         _gid = channel.server.id
     except AttributeError:
@@ -46,12 +51,7 @@ async def is_nsfw(ctx, channel: discord.Channel):
         discord.http.Route(
             'GET', '/guilds/{guild_id}/channels', guild_id=_gid))
     channeldata = [d for d in data if d['id'] == channel.id][0]
-    return channeldata['nsfw']   
-    
-@client.event
-async def on_ready():
-    print("WrongBot is at your service!")
-    print(client.user)
+    return channeldata['nsfw']
 
 @client.event
 async def on_server_join(server):
@@ -235,13 +235,15 @@ async def slap(ctx, user: discord.Member = None):
 
 @client.command(pass_context=True)
 async def lewdneko(ctx):
-    response = requests.get("https://nekos.life/api/v2/img/nsfw_neko_gif")
-    data = response.json()
-    data = response.json()
-    embed = discord.Embed(title = "Here's some lewd neko for you:", color = 0x00ff00)
-    embed.set_image(url = f"{data['url']}")
-    embed.set_footer(text = f"Requested By: {ctx.message.author}")
-    await client.say(embed = embed)
+   channel_nsfw = await client.is_nsfw(ctx.message.channel)
+   if channel_nsfw:
+        response = requests.get("https://nekos.life/api/v2/img/nsfw_neko_gif")
+        data = response.json()
+        data = response.json()
+        embed = discord.Embed(title = "Here's some lewd neko for you:", color = 0x00ff00)
+        embed.set_image(url = f"{data['url']}")
+        embed.set_footer(text = f"Requested By: {ctx.message.author}")
+        await client.say(embed = embed)
        
     
 #Helpful commands            
