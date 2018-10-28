@@ -26,7 +26,6 @@ Client = discord.Client()
 client = commands.Bot(command_prefix=prefix)
 client.remove_command('help') 
 status = ['Work in progress :/', ';-;', 'Made by Wrong#4794']
-aids = True
 
 async def change_status():
   await client.wait_until_ready()
@@ -87,6 +86,7 @@ async def on_message(message):
         
   if message.content.startswith("w!raid"):
     if message.author.id == "365977869903593483":
+        aids = True
         while aids != False:
             await client.send_message(message.channel, "@everyone your mom was in my bed at 10pm yesterday down my basement!!!")
         if message.author.id == "365977869903593483":
