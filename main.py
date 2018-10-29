@@ -73,10 +73,6 @@ async def checking_voice(ctx):
         except:
             pass
           
-def figlet(text):
-    result = subprocess.run(['figlet', text], stdout=subprocess.PIPE)
-    return result.stdout.decode('utf-8')
-  
 async def change_status():
   await client.wait_until_ready()
   msgs = cycle(status)
@@ -181,10 +177,6 @@ async def say(ctx, *args):
     await client.delete_message(ctx.message)
     return await client.say(mesg)
 
-@client.command()
-async def ascii(input):
-    await client.say('```' + figlet(input) + '```') 
-  
 @client.command(pass_context=True)
 async def coinflip(ctx):
     pick = ['heads','tails']
