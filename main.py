@@ -50,7 +50,7 @@ def prefix(bot, message):
     return prefixes.get(id, default_prefix)
 
 Client = discord.Client()
-client = commands.Bot(command_prefix=prefix)
+client = commands.Bot(command_prefix=commands.when_mentioned_or(prefix))
 client.remove_command('help') 
 status = ['Work in progress :/', ';-;', 'Made by Wrong#4794']
 
