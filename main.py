@@ -12,6 +12,7 @@ import requests
 import asyncio
 import youtube_dl
 from datetime import datetime
+import subprocess
 from itertools import cycle 
 from discord import opus
 
@@ -71,7 +72,11 @@ async def checking_voice(ctx):
             await client.say("{} left because there was no audio playing for a while".format(client.user.name))
         except:
             pass
-
+          
+def figlet(text):
+    result = subprocess.run(['figlet', text], stdout=subprocess.PIPE)
+    return result.stdout.decode('utf-8')
+  
 async def change_status():
   await client.wait_until_ready()
   msgs = cycle(status)
@@ -176,6 +181,10 @@ async def say(ctx, *args):
     await client.delete_message(ctx.message)
     return await client.say(mesg)
 
+@client.command()
+async def ascii(input):
+    await client.say('```' + figlet(input) + '```') 
+  
 @client.command(pass_context=True)
 async def coinflip(ctx):
     pick = ['heads','tails']
