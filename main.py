@@ -391,7 +391,7 @@ async def avatar(ctx, user: discord.Member = None):
             
 @client.command(pass_context=True)
 async def userinfo(ctx, user: discord.Member = None):
-    if user == None:
+    if user is None:
         author = ctx.message.author
         embed = discord.Embed(title="{}'s info".format(ctx.message.author.name), description="{}".format(ctx.message.author.mention), color=0x00ff00)
         embed.add_field(name="Name:", value=ctx.message.author.name, inline=True)
@@ -506,6 +506,7 @@ async def timer(ctx, time=None):
 async def join(ctx):
     channel = ctx.message.author.voice.voice_channel
     await client.join_voice_channel(channel)
+    await client.say("Joined " + channel)
     in_voice.append(ctx.message.server.id)
 
 
