@@ -3,4 +3,3 @@ requests
 asyncio
 youtube-dl
 PyNaCl
-subprocess
