@@ -506,7 +506,7 @@ async def timer(ctx, time=None):
 async def join(ctx):
     channel = ctx.message.author.voice.voice_channel
     await client.join_voice_channel(channel)
-    await client.say("Joined " + channel)
+    await client.say("Joined " + str(channel))
     in_voice.append(ctx.message.server.id)
 
 
