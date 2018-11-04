@@ -441,6 +441,41 @@ async def serverinfo(ctx):
     return 
 
 @client.command(pass_context=True)
+async def rainbowrole(ctx, speed: int = None, role: discord.Role = None):
+  try:
+    if ctx.message.author.server_permissions.manage_roles:
+      if speed is None:
+        embed = discord.Embed(color = 0xff0200)
+        embed.set_author(name = "Something went wrong ;-;")
+        embed.add_field(name = ":x: Error:", value = "```Please set the speed up correctly```", inline = False)
+        embed.set_footer(text = "Example Usage: `w!rainbowrole 5 Wrong`")
+        await client.say(embed = embed)
+        
+      if role = None:
+        embed = discord.Embed(color = 0xff0200)
+        embed.set_author(name = "Something went wrong ;-;")
+        embed.add_field(name = ":x: Error:", value = "```Please specify a role!```")
+        embed.set_footer(text = "Example Usage: `w!rainbowrole 5 Wrong`")
+        await client.say(embed = embed)
+        
+      if ctx.message.author.bot:
+        embed = discord.Embed(color = 0xff0200)
+        embed.add_field(name = ":x: Error:", value = "This command is blocked for bots", inline = False)
+        
+      while True:
+        rainrolecolor = random.randint(0, 0xffffff)
+        await client.edit_role(ctx.message.server, role, color=discord.Colour(rainrolecolor))
+        await asyncio.sleep(speed)
+        print("changed")
+      await client.say("Done")
+    else:
+      embed = discord.Embed(color=0xff0200)
+      embed.set_author(name="Something went wrong")
+      embed.add_field(name=":x: Error", value="You are missing the following permission: ```Manage Roles```", inline=False)
+      await client.say(embed=embed)
+  except discord.Forbidden:
+    await client.say("im either missing manage role perm or the mentioned role is higher than mine")
+@client.command(pass_context=True)
 async def stats(ctx):
     now = datetime.utcnow()
     elapsed = now - starttime
