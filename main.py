@@ -422,10 +422,10 @@ async def userinfo(ctx, user: discord.Member = None):
 async def serverinfo(ctx):
     server = ctx.message.server
     embed = discord.Embed(name="{}'s info".format(ctx.message.server.name), description=":D", color=0x00ff00)
-    embed.add_field(name = 'Owner:', value = str(server.owner)
+    embed.add_field(name = 'Owner:', value = str(server.owner), inline = True)
     embed.add_field(name="ID:", value=ctx.message.server.id, inline=True)
     embed.add_field(name="Members:", value=len(ctx.message.server.members))
-    embed.add_field(name = 'Text/Voice Channels:', value = str(len(server.channels)))
+    embed.add_field(name = 'Text/Voice Channels:', value = str(len(server.channels)), inline = True)
     roles = [x.name for x in server.role_hierarchy]
     role_length = len(roles)
 
