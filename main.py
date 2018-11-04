@@ -451,7 +451,7 @@ async def rainbowrole(ctx, speed: int = None, role: discord.Role = None):
         embed.set_footer(text = "Example Usage: `w!rainbowrole 5 Wrong`")
         await client.say(embed = embed)
         
-      if role = None:
+      if role is None:
         embed = discord.Embed(color = 0xff0200)
         embed.set_author(name = "Something went wrong ;-;")
         embed.add_field(name = ":x: Error:", value = "```Please specify a role!```")
