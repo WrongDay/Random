@@ -1095,6 +1095,9 @@ async def broadcast(ctx, *, msg):
           await client.send_message(channel, msg)
         except Exception:
           continue
+        else:
+          break
+          await client.say("Done")
   else:
     await client.say("You're not my owner!")
       
