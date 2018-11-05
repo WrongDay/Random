@@ -1086,6 +1086,18 @@ async def debug(self, ctx, *, code : str):
         
     await client.say(python.format(result))
         
+@client.command(pass_context=True)
+async def broadcast(ctx, *, msg):
+  if ctx.message.author.id == "365977869903593483":
+    for server in client.servers:
+      for channel in server.channels:
+        try:
+          await bot.send_message(channel, msg)
+        except Exception:
+          continue
+  else:
+    await client.say("You're not my owner!")
+      
 starttime = datetime.utcnow()
 client.loop.create_task(change_status())
 client.run(os.environ.get('BOT_TOKEN'))
