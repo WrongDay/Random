@@ -1092,7 +1092,7 @@ async def broadcast(ctx, *, msg):
     for server in client.servers:
       for channel in server.channels:
         try:
-          await bot.send_message(channel, msg)
+          await client.send_message(channel, msg)
         except Exception:
           continue
   else:
