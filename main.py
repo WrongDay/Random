@@ -88,6 +88,8 @@ async def on_ready():
     client.loop.create_task(all_false())
     print("WrongBot is at your service!")
     print(client.user)
+ for server in bot.guilds:
+  print(server.name)
 
 @client.event
 async def is_nsfw(channel: discord.Channel):
