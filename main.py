@@ -89,7 +89,7 @@ async def on_ready():
     print("WrongBot is at your service!")
     print(client.user)
     for server in client.guilds:
-    print(server.name)
+      print(server.name)
 
 @client.event
 async def is_nsfw(channel: discord.Channel):
