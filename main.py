@@ -500,76 +500,7 @@ async def timer(ctx, time=None):
     embed.set_footer(text='Timer:')
     await client.say(embed=embed)       
    
-
-#Music
-@client.command(pass_context=True)
-async def join(ctx):
-    channel = ctx.message.author.voice.voice_channel
-    if channel is None:
-        await client.say(":exclamation: | **You need to join a voice channel!**")
-        return
-    await client.join_voice_channel(channel)
-    await client.say(f"**I have joined {channel}** <:music:503713910763814912>")
-
-@client.command(pass_context=True)
-async def leave(ctx):
-    server = ctx.message.server
-    voice_client = client.voice_client_in(server)
-    if voice_client is None:
-        await client.say(":exclamation: | **I am not in a voice channel!**")
-        return
-    await voice_client.disconnect()
-    await client.say(f"**I have left** <:music:503713910763814912>")
-
-@client.command(pass_context=True)
-async def play(ctx, url):
-    server = ctx.message.server
-    voice_client = client.voice_client_in(server)
-    player = await voice_client.create_ytdl_player(url)
-    players[server.id] = player
-    player.start()
-
-async def player_in(con):  # After function for music
-    try:
-        if len(songs[con.message.server.id]) == 0:  # If there is no queue make it False
-            playing[con.message.server.id] = False
-            client.loop.create_task(checking_voice(con))
-    except:
-        pass
-    try:
-        if len(songs[con.message.server.id]) != 0:  # If queue is not empty
-            # if audio is not playing and there is a queue
-            songs[con.message.server.id][0].start()  # start it
-            await client.send_message(con.message.channel, 'Now queueed')
-            del songs[con.message.server.id][0]  # delete list afterwards
-
-@client.command(pass_context=True)
-async def queue(con):
-    await client.say("There are currently {} audios in queue".format(len(songs)))
- 
-@client.command(pass_context=True)
-async def pause(ctx):
-    players[ctx.message.server.id].pause()
-    
-@client.command(pass_context=True)
-async def resume(ctx):
-    players[ctx.message.server.id].resume()
-    
-@client.command(pass_context=True)
-async def volume(ctx, vol:float):
-    volu = float(vol)
-    players[ctx.message.server.id].volume=volu
-
-@client.command(pass_context=True)
-async def skip(con): #skipping songs?
-  songs[con.message.server.id]
-    
-@client.command(pass_context=True)
-async def stop(con):
-    players[con.message.server.id].stop()
-    songs.clear()
-
- #Giveaway
+#Giveaway
 @client.command(pass_context = True)
 async def giveaway(ctx):
     if ctx.message.author.server_permissions.manage_server:
@@ -836,7 +767,7 @@ async def removerole(ctx, user: discord.Member = None, *, name = None):
                 return
             if role is None:
                 embed = discord.Embed(color=0xff0200)
-                embed.set_author(icon_url=author.avatar_url, name="Something went wrong ;-;")
+                embed.set_author(icon_url=author.avatar_url, name="Something went wrong")
                 embed.add_field(name=":x: Error", value=f"You made an mistake! Makes sure you specify the role exactly how it's named. ```Error: No role called; {name}```")
                 await client.say(embed=embed)
                 return
