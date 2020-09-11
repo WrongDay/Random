@@ -9,8 +9,6 @@ import random
 import datetime
 import aiohttp
 import requests
-import asyncio
-import youtube_dl
 from datetime import datetime
 import subprocess
 from itertools import cycle 
@@ -25,25 +23,7 @@ def prefix(bot, message):
 Client = discord.Client()
 client = commands.Bot(command_prefix=prefix)
 client.remove_command('help') 
-status = ['Work in progress :/', ';-;', 'Made by Wrong#4794']
-
-async def all_false():
-    for i in client.servers:
-        playing[i.id]=False
-
-
-async def checking_voice(ctx):
-    await asyncio.sleep(130)
-    if playing[ctx.message.server.id]== False:
-        try:
-            pos = in_voice.index(ctx.message.server.id)
-            del in_voice[pos]
-            server = ctx.message.server
-            voice_client = client.voice_client_in(server)
-            await voice_client.disconnect()
-            await client.say("{} left because there was no audio playing for a while".format(client.user.name))
-        except:
-            pass
+status = ['Use w!help', "I'm online!', 'Made by Wrong#4794']
           
 async def change_status():
   await client.wait_until_ready()
@@ -73,11 +53,6 @@ async def is_nsfw(channel: discord.Channel):
     channeldata = [d for d in data if d['id'] == channel.id][0]
     return channeldata['nsfw']
 
-    
-@client.event
-async def on_server_join(server):
-    await client.send_message(server.owner, """Thanks for inviting me!""")
-
 @client.event 
 async def on_message(message):
   if message.content.startswith("w!reverse"):
@@ -105,7 +80,7 @@ async def on_message(message):
       
   await client.process_commands(message)
     
- #CONFIGS
+# Configs
 @client.command(name="prefix", pass_context=True)
 async def prefix(ctx, new_prefix):
     with open("serverConfig.json", "r") as f:
@@ -154,7 +129,6 @@ async def coinflip(ctx):
     pick = ['heads','tails']
     flip = random.choice(pick)
     await client.say ("The coin landed on " + flip + '!')
-    return
 
 @client.command(pass_context = True)
 async def meme(ctx):
@@ -253,7 +227,7 @@ async def slap(ctx, user: discord.Member = None):
     embed.set_footer(text=f"Requested By: {ctx.message.author}")
     await client.say(embed=embed)
 
-#nsfw
+# NSFW
 @client.command(pass_context=True)
 async def lewdneko(ctx):
    channel_nsfw = await client.is_nsfw(ctx.message.channel)
@@ -344,7 +318,7 @@ async def anal(ctx):
         embed.set_footer(text='''We need to protect people's eyes :D''')
         await client.say(embed = embed)  
     
-#Helpful commands            
+# Helpful commands            
 @client.command(pass_context = True)
 async def avatar(ctx, user: discord.Member = None):
     await client.send_typing(ctx.message.channel)
@@ -433,16 +407,6 @@ async def ping(ctx):
     t2 = time.perf_counter()
     embed=discord.Embed(title="My ping:", description='*Latency: {}ms*'.format(round((t2-t1)*1000)), color=0x00ff00)
     await client.say(embed=embed)
-
-@client.command(pass_context=True)
-async def credits(ctx):
-    author = ctx.message.author
-    embed = discord.Embed(color = 0x00ff00)
-    embed.set_author(name = "Below are some people who helped with the bot development :P")
-    embed.add_field(name = "Savage#5185", value = "-helped with .json files")
-    embed.add_field(name = "Drezy#1469", value = "- helped with nsfw checker")
-    embed.add_field(name = "TheRedMammon#2485", value = "- helped with debugging errors")
-    await client.say(embed=embed)               
     
 @client.command(pass_context=True)
 async def invite(ctx):
@@ -593,48 +557,6 @@ async def giveaway(ctx):
         embed.set_author(icon_url=author.avatar_url, name="Something went wrong ;-;")
         embed.add_field(name=":x: Error", value="You are missing the following permission: ```Manage Server```", inline=False)
         await client.say(embed=embed)
-                
-#Economy
-@client.command(pass_context=True)
-@commands.cooldown(1, 120, commands.BucketType.user)
-async def work(ctx):
-    with open("economy.json", "r") as f:
-       	coins = json.load(f)
-    author = ctx.message.author
-    coinsc = random.randint(1, 100)
-    if not ctx.message.server.id in coins:
-       	coins[ctx.message.server.id] = {}
-    if not author.id in coins[ctx.message.server.id]:
-        coins[ctx.message.server.id][author.id] = 0
-    coins[ctx.message.server.id][author.id] += coinsc
-    embed = discord.Embed(color=0x00ff00)
-    embed.add_field(name=":dollar: | Payment amount:", value=f"${coinsc}", inline=False)
-    embed.set_footer(icon_url=author.avatar_url, text="Economy Commands!")
-    await client.say(embed=embed)
-    with open("economy.json", "w") as f:
-        json.dump(coins, f, indent=4)
-
-@work.error
-async def cooldown_error(error, ctx):
-    if isinstance(error, commands.CommandOnCooldown):
-        author = ctx.message.author
-        embed = discord.Embed(color=0x1434a3)
-        embed.add_field(name="Calm Down!", value="Work command is on cooldown for 2 minutes.")
-        embed.set_footer(icon_url=author.avatar_url, text="Economy Commands!")
-        await client.say(embed=embed)
-       
-@client.command(pass_context=True)
-async def bal(ctx):
-    with open("economy.json", "r") as f:
-        coins = json.load(f)
-    author = ctx.message.author
-    if not author.id in coins[ctx.message.server.id]:
-        coins[ctx.message.server.id][author.id] = 0
-    coinss = coins[ctx.message.server.id][author.id]
-    embed = discord.Embed(color=0x00ff00)
-    embed.add_field(name="<:dollar: | Your balance:", value=f"${coinss}", inline=False)
-    embed.set_footer(icon_url=author.avatar_url, text="Economy Commands!")
-    await client.say(embed=embed)       
             
 #Moderation commands
 @client.command(pass_context=True)
@@ -939,29 +861,7 @@ async def ban(ctx, user: discord.Member = None, *, reason=None):
         embed.set_footer(text='You cant use this command!')
         await client.say(embed=embed)
         return
-        
-@client.command(pass_context=True, hidden=True)
-@commands.has_role("Owner")
-async def debug(self, ctx, *, code : str):
-    code = code.strip('` ')
-    python = '```py\n{}\n```'
-    result = None
-
-    try:
-        result = eval(code)
- 
-    except Exception as e:
-        await client.say(python.format(type(e).__name__ + ': ' + str(e)))
-        return
-    
-    if asyncio.iscoroutine(result):
-        result = await result
-
-    else:
-        await client.say("Good job! No errors :D")
-        
-    await client.say(python.format(result))
-        
+                        
 @client.command(pass_context=True)
 async def broadcast(ctx, *, msg):
   if ctx.message.author.id == "365977869903593483":
@@ -972,7 +872,6 @@ async def broadcast(ctx, *, msg):
         except Exception:
           continue
         else:
-          break
           await client.say("Done")
   else:
     await client.say("You're not my owner!")
